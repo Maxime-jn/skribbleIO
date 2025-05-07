@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            btnSendMessage = new Button();
             lbxChat = new ListBox();
             lbxPlayer = new ListBox();
-            label1 = new Label();
+            lblSecretWord = new Label();
             lblClock = new Label();
             pbxCanva = new PictureBox();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button9 = new Button();
-            button10 = new Button();
+            btnPen = new Button();
+            btnEraser = new Button();
+            btnRed = new Button();
+            btnBlack = new Button();
+            btnBlue = new Button();
+            btnGreen = new Button();
+            btnRose = new Button();
+            btnYellow = new Button();
+            tbxMessage = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pbxCanva).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // btnSendMessage
             // 
-            button1.Location = new Point(1091, 620);
-            button1.Name = "button1";
-            button1.Size = new Size(189, 40);
-            button1.TabIndex = 0;
-            button1.Text = "btnSendMessage";
-            button1.UseVisualStyleBackColor = true;
+            btnSendMessage.Location = new Point(1091, 637);
+            btnSendMessage.Name = "btnSendMessage";
+            btnSendMessage.Size = new Size(189, 26);
+            btnSendMessage.TabIndex = 0;
+            btnSendMessage.UseVisualStyleBackColor = true;
             // 
             // lbxChat
             // 
@@ -72,14 +72,13 @@
             lbxPlayer.Size = new Size(189, 544);
             lbxPlayer.TabIndex = 2;
             // 
-            // label1
+            // lblSecretWord
             // 
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(362, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(532, 44);
-            label1.TabIndex = 3;
-            label1.Text = "lblSecretWord";
+            lblSecretWord.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSecretWord.Location = new Point(362, 9);
+            lblSecretWord.Name = "lblSecretWord";
+            lblSecretWord.Size = new Size(532, 44);
+            lblSecretWord.TabIndex = 3;
             // 
             // lblClock
             // 
@@ -98,118 +97,132 @@
             pbxCanva.TabIndex = 5;
             pbxCanva.TabStop = false;
             // 
-            // button2
+            // btnPen
             // 
-            button2.Location = new Point(207, 610);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 53);
-            button2.TabIndex = 6;
-            button2.Text = "ptnPen";
-            button2.UseVisualStyleBackColor = true;
+            btnPen.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPen.Location = new Point(207, 610);
+            btnPen.Name = "btnPen";
+            btnPen.Size = new Size(75, 53);
+            btnPen.TabIndex = 6;
+            btnPen.Text = "🖊️";
+            btnPen.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnEraser
             // 
-            button3.Location = new Point(288, 610);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 53);
-            button3.TabIndex = 7;
-            button3.Text = "btnEraser";
-            button3.UseVisualStyleBackColor = true;
+            btnEraser.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEraser.ForeColor = Color.Black;
+            btnEraser.Location = new Point(288, 610);
+            btnEraser.Name = "btnEraser";
+            btnEraser.Size = new Size(75, 53);
+            btnEraser.TabIndex = 7;
+            btnEraser.Text = "\U0001f9fd";
+            btnEraser.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnRed
             // 
-            button4.Location = new Point(369, 610);
-            button4.Name = "button4";
-            button4.Size = new Size(35, 28);
-            button4.TabIndex = 8;
-            button4.Text = "btnRed";
-            button4.UseVisualStyleBackColor = true;
+            btnRed.BackColor = Color.Red;
+            btnRed.ForeColor = Color.Red;
+            btnRed.Location = new Point(369, 610);
+            btnRed.Name = "btnRed";
+            btnRed.Size = new Size(35, 28);
+            btnRed.TabIndex = 8;
+            btnRed.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // btnBlack
             // 
-            button5.Location = new Point(410, 610);
-            button5.Name = "button5";
-            button5.Size = new Size(35, 28);
-            button5.TabIndex = 9;
-            button5.Text = "btnBlack";
-            button5.UseVisualStyleBackColor = true;
+            btnBlack.BackColor = Color.Black;
+            btnBlack.Location = new Point(410, 610);
+            btnBlack.Name = "btnBlack";
+            btnBlack.Size = new Size(35, 28);
+            btnBlack.TabIndex = 9;
+            btnBlack.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // btnBlue
             // 
-            button6.Location = new Point(451, 610);
-            button6.Name = "button6";
-            button6.Size = new Size(35, 28);
-            button6.TabIndex = 10;
-            button6.Text = "btnBlue";
-            button6.UseVisualStyleBackColor = true;
+            btnBlue.BackColor = Color.Blue;
+            btnBlue.Location = new Point(451, 610);
+            btnBlue.Name = "btnBlue";
+            btnBlue.Size = new Size(35, 28);
+            btnBlue.TabIndex = 10;
+            btnBlue.UseVisualStyleBackColor = false;
             // 
-            // button7
+            // btnGreen
             // 
-            button7.Location = new Point(492, 610);
-            button7.Name = "button7";
-            button7.Size = new Size(35, 28);
-            button7.TabIndex = 11;
-            button7.Text = "btnGreen";
-            button7.UseVisualStyleBackColor = true;
+            btnGreen.BackColor = Color.Green;
+            btnGreen.Location = new Point(492, 610);
+            btnGreen.Name = "btnGreen";
+            btnGreen.Size = new Size(35, 28);
+            btnGreen.TabIndex = 11;
+            btnGreen.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // btnRose
             // 
-            button9.Location = new Point(574, 610);
-            button9.Name = "button9";
-            button9.Size = new Size(35, 28);
-            button9.TabIndex = 13;
-            button9.Text = "btnRose";
-            button9.UseVisualStyleBackColor = true;
+            btnRose.BackColor = Color.Magenta;
+            btnRose.Location = new Point(574, 610);
+            btnRose.Name = "btnRose";
+            btnRose.Size = new Size(35, 28);
+            btnRose.TabIndex = 13;
+            btnRose.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // btnYellow
             // 
-            button10.Location = new Point(533, 610);
-            button10.Name = "button10";
-            button10.Size = new Size(35, 28);
-            button10.TabIndex = 14;
-            button10.Text = "btnYellow";
-            button10.UseVisualStyleBackColor = true;
+            btnYellow.BackColor = Color.Yellow;
+            btnYellow.Location = new Point(533, 610);
+            btnYellow.Name = "btnYellow";
+            btnYellow.Size = new Size(35, 28);
+            btnYellow.TabIndex = 14;
+            btnYellow.UseVisualStyleBackColor = false;
+            // 
+            // tbxMessage
+            // 
+            tbxMessage.Location = new Point(1091, 607);
+            tbxMessage.Name = "tbxMessage";
+            tbxMessage.Size = new Size(189, 23);
+            tbxMessage.TabIndex = 15;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1304, 672);
-            Controls.Add(button10);
-            Controls.Add(button9);
-            Controls.Add(button7);
-            Controls.Add(button6);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(tbxMessage);
+            Controls.Add(btnYellow);
+            Controls.Add(btnRose);
+            Controls.Add(btnGreen);
+            Controls.Add(btnBlue);
+            Controls.Add(btnBlack);
+            Controls.Add(btnRed);
+            Controls.Add(btnEraser);
+            Controls.Add(btnPen);
             Controls.Add(pbxCanva);
             Controls.Add(lblClock);
-            Controls.Add(label1);
+            Controls.Add(lblSecretWord);
             Controls.Add(lbxPlayer);
             Controls.Add(lbxChat);
-            Controls.Add(button1);
+            Controls.Add(btnSendMessage);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pbxCanva).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        private Button btnSendMessage;
         private ListBox lbxChat;
         private ListBox lbxPlayer;
-        private Label label1;
+        private Label lblSecretWord;
         private Label lblClock;
         private PictureBox pbxCanva;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button9;
-        private Button button10;
+        private Button btnPen;
+        private Button btnEraser;
+        private Button btnRed;
+        private Button btnBlack;
+        private Button btnBlue;
+        private Button btnGreen;
+        private Button btnRose;
+        private Button btnYellow;
+        private TextBox tbxMessage;
     }
 }
