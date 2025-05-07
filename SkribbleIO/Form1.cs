@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using System.Drawing.Text;
 
 namespace SkribbleIO
 {
@@ -26,8 +27,8 @@ namespace SkribbleIO
                         g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                         g.DrawLine(p, lastPoint, e.Location);
 
-                        // Remplit les trous entre les points en dessinant un petit cercle à l'arrivée
-                        int radius = selectedWidth / 2; // rayon du cercle (à ajuster selon l'épaisseur)
+                        // Remplit les trous entre les points en dessinant un petit cercle ï¿½ l'arrivï¿½e
+                        int radius = selectedWidth / 2; // rayon du cercle (ï¿½ ajuster selon l'ï¿½paisseur)
                         g.FillEllipse(b, e.X - radius, e.Y - radius, radius * 2, radius * 2);
                     }
                 }
@@ -70,5 +71,66 @@ namespace SkribbleIO
         {
             selectedWidth = trbWidth.Value;
         }
+        List<string> words = new List<string>
+        {
+            "chat", "chien", "maison", "ï¿½cole", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
+            "ï¿½toile", "mer", "riviï¿½re", "montagne", "colline", "forï¿½t", "jardin", "parc", "ville", "village",
+            "campagne", "route", "chemin", "pont", "rue", "avenue", "boulevard", "place", "marchï¿½", "magasin",
+            "supermarchï¿½", "boulangerie", "pï¿½tisserie", "fromagerie", "boucherie", "poissonnerie", "pharmacie",
+            "hï¿½pital", "ï¿½glise", "mosquï¿½e", "synagogue", "temple", "mairie", "ï¿½cole", "collï¿½ge", "lycï¿½e", "universitï¿½",
+            "bibliothï¿½que", "musï¿½e", "thï¿½ï¿½tre", "cinï¿½ma", "stade", "parc", "jardin", "plage", "port", "gare",
+            "aï¿½roport", "station", "mï¿½tro", "bus", "taxi", "vï¿½lo", "moto", "camion", "bateau", "avion", "train",
+            "pomme", "poire", "banane", "orange", "fraise", "cerise", "raisin", "pastï¿½que", "melon", "pï¿½che",
+            "abricot", "prune", "kiwi", "mangue", "ananas", "citron", "pamplemousse", "framboise", "mï¿½re", "myrtille",
+            "pain", "baguette", "croissant", "brioche", "tarte", "gï¿½teau", "chocolat", "bonbon", "glace", "crï¿½pe",
+            "omelette", "pizza", "pï¿½tes", "riz", "couscous", "soupe", "salade", "steak", "poulet", "poisson",
+            "viande", "jambon", "fromage", "lait", "beurre", "yaourt", "crï¿½me", "ï¿½uf", "farine", "sucre", "sel",
+            "poivre", "huile", "vinaigre", "moutarde", "ketchup", "mayonnaise", "thï¿½", "cafï¿½", "chocolat", "eau",
+            "lait", "jus", "soda", "biï¿½re", "vin", "champagne", "whisky", "vodka", "rhum", "tequila", "gin",
+            "ordinateur", "clavier", "souris", "ï¿½cran", "imprimante", "scanner", "tï¿½lï¿½phone", "tablette", "appareil",
+            "photo", "camï¿½ra", "tï¿½lï¿½vision", "radio", "enceinte", "casque", "micro", "montre", "bracelet", "collier",
+            "bague", "boucles", "cheveux", "yeux", "nez", "bouche", "oreille", "bras", "jambe", "pied", "main",
+            "doigt", "genou", "coude", "poignet", "cheville", "ï¿½paule", "ventre", "dos", "tï¿½te", "cï¿½ur", "poumon",
+            "foie", "estomac", "intestin", "rein", "os", "muscle", "peau", "cheveu", "ongle", "dent", "langue",
+            "ï¿½cole", "travail", "bureau", "atelier", "usine", "chantier", "entreprise", "commerce", "service", "police",
+            "pompiers", "armï¿½e", "justice", "banque", "assurance", "administration", "ï¿½nergie", "transport", "tourisme",
+            "art", "culture", "loisir", "sport", "musique", "danse", "thï¿½ï¿½tre", "cinï¿½ma", "littï¿½rature", "peinture",
+            "sculpture", "photographie", "cinï¿½ma", "mode", "gastronomie", "cuisine", "vin", "fromage", "chocolat",
+            "pain", "dessert", "recette", "cï¿½rï¿½monie", "fï¿½te", "anniversaire", "mariage", "baptï¿½me", "enterrement",
+            "fï¿½te", "vacances", "voyage", "randonnï¿½e", "ski", "plongï¿½e", "natation", "course", "marche", "danse",
+            "chant", "musique", "peinture", "dessin", "sculpture", "photographie", "cinï¿½ma", "thï¿½ï¿½tre", "lecture",
+            "ï¿½criture", "poï¿½sie", "roman", "nouvelle", "essai", "biographie", "journal", "magazine", "revue"
+        };
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            Random random = new Random();
+            int index = random.Next(words.Count);
+
+            loadSecretWord(words[index]);
+        }
+
+
+
+        private Dictionary<char, bool> loadSecretWord(string secretWord)
+        {
+            Dictionary<char, bool> lettersIsShow = new Dictionary<char, bool>();
+
+            char[] letters = secretWord.ToCharArray();
+
+            foreach (var item in letters)
+            {
+                lettersIsShow[item] = false;
+            }
+
+            Random random = new Random();
+            int index = random.Next(lettersIsShow.Count);
+            lettersIsShow[letters[index]] = true;
+
+            return lettersIsShow;
+        }
+
+
     }
 }

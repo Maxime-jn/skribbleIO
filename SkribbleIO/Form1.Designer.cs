@@ -31,10 +31,24 @@ namespace SkribbleIO
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            components = new System.ComponentModel.Container();
             pbxCanvas = new PictureBox();
+            trbWidth = new TrackBar();
+            btnSendMessage = new Button();
+            lbxChat = new ListBox();
+            lbxPlayer = new ListBox();
+            lblSecretWord = new Label();
+            lblClock = new Label();
             btnPen = new Button();
             btnEraser = new Button();
-            trbWidth = new TrackBar();
+            btnRed = new Button();
+            btnBlack = new Button();
+            btnBlue = new Button();
+            btnGreen = new Button();
+            btnRose = new Button();
+            btnYellow = new Button();
+            tbxMessage = new TextBox();
+            tmrClock = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).BeginInit();
             SuspendLayout();
@@ -51,26 +65,7 @@ namespace SkribbleIO
             pbxCanvas.MouseDown += pbxCanvas_MouseDown;
             pbxCanvas.MouseMove += pbxCanvas_MouseMove;
             pbxCanvas.MouseUp += pbxCanvas_MouseUp;
-            // 
-            // btnPen
-            // 
-            btnPen.Location = new Point(1080, 105);
-            btnPen.Name = "btnPen";
-            btnPen.Size = new Size(91, 65);
-            btnPen.TabIndex = 1;
-            btnPen.Text = "crayon";
-            btnPen.UseVisualStyleBackColor = true;
-            btnPen.Click += btnPen_Click;
-            // 
-            // btnEraser
-            // 
-            btnEraser.Location = new Point(1080, 197);
-            btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(91, 65);
-            btnEraser.TabIndex = 2;
-            btnEraser.Text = "gomme";
-            btnEraser.UseVisualStyleBackColor = true;
-            btnEraser.Click += btnEraser_Click;
+
             // 
             // trbWidth
             // 
@@ -85,18 +80,161 @@ namespace SkribbleIO
             trbWidth.Value = 5;
             trbWidth.Scroll += trbWidth_Scroll;
             // 
+            // btnSendMessage
+            // 
+            btnSendMessage.Location = new Point(1091, 637);
+            btnSendMessage.Name = "btnSendMessage";
+            btnSendMessage.Size = new Size(189, 26);
+            btnSendMessage.TabIndex = 0;
+            btnSendMessage.UseVisualStyleBackColor = true;
+            // 
+            // lbxChat
+            // 
+            lbxChat.FormattingEnabled = true;
+            lbxChat.ItemHeight = 15;
+            lbxChat.Location = new Point(1091, 59);
+            lbxChat.Name = "lbxChat";
+            lbxChat.Size = new Size(189, 544);
+            lbxChat.TabIndex = 1;
+            // 
+            // lbxPlayer
+            // 
+            lbxPlayer.FormattingEnabled = true;
+            lbxPlayer.ItemHeight = 15;
+            lbxPlayer.Location = new Point(12, 59);
+            lbxPlayer.Name = "lbxPlayer";
+            lbxPlayer.Size = new Size(189, 544);
+            lbxPlayer.TabIndex = 2;
+            // 
+            // lblSecretWord
+            // 
+            lblSecretWord.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSecretWord.Location = new Point(362, 9);
+            lblSecretWord.Name = "lblSecretWord";
+            lblSecretWord.Size = new Size(532, 44);
+            lblSecretWord.TabIndex = 3;
+            // 
+            // lblClock
+            // 
+            lblClock.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblClock.Location = new Point(12, 9);
+            lblClock.Name = "lblClock";
+            lblClock.Size = new Size(189, 44);
+            lblClock.TabIndex = 4;
+            lblClock.Text = "label2";
+            // 
+            // btnPen
+            // 
+            btnPen.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPen.Location = new Point(207, 610);
+            btnPen.Name = "btnPen";
+            btnPen.Size = new Size(75, 53);
+            btnPen.TabIndex = 6;
+            btnPen.Text = "🖊️";
+            btnPen.UseVisualStyleBackColor = true;
+            // 
+            // btnEraser
+            // 
+            btnEraser.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEraser.ForeColor = Color.Black;
+            btnEraser.Location = new Point(288, 610);
+            btnEraser.Name = "btnEraser";
+            btnEraser.Size = new Size(75, 53);
+            btnEraser.TabIndex = 7;
+            btnEraser.Text = "\U0001f9fd";
+            btnEraser.UseVisualStyleBackColor = true;
+            // 
+            // btnRed
+            // 
+            btnRed.BackColor = Color.Red;
+            btnRed.ForeColor = Color.Red;
+            btnRed.Location = new Point(369, 610);
+            btnRed.Name = "btnRed";
+            btnRed.Size = new Size(35, 28);
+            btnRed.TabIndex = 8;
+            btnRed.UseVisualStyleBackColor = false;
+            // 
+            // btnBlack
+            // 
+            btnBlack.BackColor = Color.Black;
+            btnBlack.Location = new Point(410, 610);
+            btnBlack.Name = "btnBlack";
+            btnBlack.Size = new Size(35, 28);
+            btnBlack.TabIndex = 9;
+            btnBlack.UseVisualStyleBackColor = false;
+            // 
+            // btnBlue
+            // 
+            btnBlue.BackColor = Color.Blue;
+            btnBlue.Location = new Point(451, 610);
+            btnBlue.Name = "btnBlue";
+            btnBlue.Size = new Size(35, 28);
+            btnBlue.TabIndex = 10;
+            btnBlue.UseVisualStyleBackColor = false;
+            // 
+            // btnGreen
+            // 
+            btnGreen.BackColor = Color.Green;
+            btnGreen.Location = new Point(492, 610);
+            btnGreen.Name = "btnGreen";
+            btnGreen.Size = new Size(35, 28);
+            btnGreen.TabIndex = 11;
+            btnGreen.UseVisualStyleBackColor = false;
+            // 
+            // btnRose
+            // 
+            btnRose.BackColor = Color.Magenta;
+            btnRose.Location = new Point(574, 610);
+            btnRose.Name = "btnRose";
+            btnRose.Size = new Size(35, 28);
+            btnRose.TabIndex = 13;
+            btnRose.UseVisualStyleBackColor = false;
+            // 
+            // btnYellow
+            // 
+            btnYellow.BackColor = Color.Yellow;
+            btnYellow.Location = new Point(533, 610);
+            btnYellow.Name = "btnYellow";
+            btnYellow.Size = new Size(35, 28);
+            btnYellow.TabIndex = 14;
+            btnYellow.UseVisualStyleBackColor = false;
+            // 
+            // tbxMessage
+            // 
+            tbxMessage.Location = new Point(1091, 607);
+            tbxMessage.Name = "tbxMessage";
+            tbxMessage.Size = new Size(189, 23);
+            tbxMessage.TabIndex = 15;
+            // 
+            // tmrClock
+            // 
+            tmrClock.Interval = 1000;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Desktop;
-            ClientSize = new Size(1244, 680);
+            ClientSize = new Size(1304, 672);
             Controls.Add(trbWidth);
-            Controls.Add(btnEraser);
-            Controls.Add(btnPen);
             Controls.Add(pbxCanvas);
+            Controls.Add(tbxMessage);
+            Controls.Add(btnYellow);
+            Controls.Add(btnRose);
+            Controls.Add(btnGreen);
+            Controls.Add(btnBlue);
+            Controls.Add(btnBlack);
+            Controls.Add(btnRed);
+            Controls.Add(btnEraser);
+            Controls.Add(pbxCanva);
+            Controls.Add(lblClock);
+            Controls.Add(lblSecretWord);
+            Controls.Add(lbxPlayer);
+            Controls.Add(lbxChat);
+            Controls.Add(btnSendMessage);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).EndInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).EndInit();
             ResumeLayout(false);
@@ -106,8 +244,21 @@ namespace SkribbleIO
         #endregion
 
         private PictureBox pbxCanvas;
+        private TrackBar trbWidth;
+        private Button btnSendMessage;
+        private ListBox lbxChat;
+        private ListBox lbxPlayer;
+        private Label lblSecretWord;
+        private Label lblClock;
         private Button btnPen;
         private Button btnEraser;
-        private TrackBar trbWidth;
+        private Button btnRed;
+        private Button btnBlack;
+        private Button btnBlue;
+        private Button btnGreen;
+        private Button btnRose;
+        private Button btnYellow;
+        private TextBox tbxMessage;
+        private System.Windows.Forms.Timer tmrClock;
     }
 }
