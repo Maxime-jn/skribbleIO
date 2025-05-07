@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btnSendMessage = new Button();
             lbxChat = new ListBox();
             lbxPlayer = new ListBox();
@@ -43,6 +44,7 @@
             btnRose = new Button();
             btnYellow = new Button();
             tbxMessage = new TextBox();
+            tmrClock = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pbxCanva).BeginInit();
             SuspendLayout();
             // 
@@ -180,6 +182,10 @@
             tbxMessage.Size = new Size(189, 23);
             tbxMessage.TabIndex = 15;
             // 
+            // tmrClock
+            // 
+            tmrClock.Interval = 1000;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -202,6 +208,7 @@
             Controls.Add(btnSendMessage);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pbxCanva).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -224,5 +231,6 @@
         private Button btnRose;
         private Button btnYellow;
         private TextBox tbxMessage;
+        private System.Windows.Forms.Timer tmrClock;
     }
 }
