@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using System.Drawing.Text;
+using System;
 
 namespace SkribbleIO
 {
@@ -8,6 +9,52 @@ namespace SkribbleIO
         public Form1()
         {
             InitializeComponent();
+        }
+
+        List<string> words = new List<string>
+        {
+            "chat", "chien", "maison", "�cole", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
+            "étoile", "mer", "rivière", "montagne", "colline", "foret", "jardin", "parc", "ville", "village",
+            "campagne", "route", "chemin", "pont", "rue", "avenue", "boulevard", "place", "march�", "magasin",
+            "supermarch�", "boulangerie", "patisserie", "fromagerie", "boucherie", "poissonnerie", "pharmacie",
+            "hopital", "église", "mosquée", "synagogue", "temple", "mairie", "école", "collège", "lycée", "université",
+            "bibliothèque", "musée", "théatre", "cinéma", "stade", "parc", "jardin", "plage", "port", "gare",
+            "a�roport", "station", "métro", "bus", "taxi", "vélo", "moto", "camion", "bateau", "avion", "train",
+            "pomme", "poire", "banane", "orange", "fraise", "cerise", "raisin", "pastèque", "melon", "pèche",
+            "abricot", "prune", "kiwi", "mangue", "ananas", "citron", "pamplemousse", "framboise", "mare", "myrtille",
+            "pain", "baguette", "croissant", "brioche", "tarte", "gateau", "chocolat", "bonbon", "glace", "crèpe",
+            "omelette", "pizza", "pates", "riz", "couscous", "soupe", "salade", "steak", "poulet", "poisson",
+            "viande", "jambon", "fromage", "lait", "beurre", "yaourt", "crème", "ouf", "farine", "sucre", "sel",
+            "poivre", "huile", "vinaigre", "moutarde", "ketchup", "mayonnaise", "thé", "café", "chocolat", "eau",
+            "lait", "jus", "soda", "bière", "vin", "champagne", "whisky", "vodka", "rhum", "tequila", "gin",
+            "ordinateur", "clavier", "souris", "écran", "imprimante", "scanner", "téléphone", "tablette", "appareil",
+            "photo", "caméra", "télévision", "radio", "enceinte", "casque", "micro", "montre", "bracelet", "collier",
+            "bague", "boucles", "cheveux", "yeux", "nez", "bouche", "oreille", "bras", "jambe", "pied", "main",
+            "doigt", "genou", "coude", "poignet", "cheville", "épaule", "ventre", "dos", "téte", "cour", "poumon",
+            "foie", "estomac", "intestin", "rein", "os", "muscle", "peau", "cheveu", "ongle", "dent", "langue",
+            "école", "travail", "bureau", "atelier", "usine", "chantier", "entreprise", "commerce", "service", "police",
+            "pompiers", "armée", "justice", "banque", "assurance", "administration", "énergie", "transport", "tourisme",
+            "art", "culture", "loisir", "sport", "musique", "danse", "théatre", "cinéma", "littérature", "peinture",
+            "sculpture", "photographie", "cinéma", "mode", "gastronomie", "cuisine", "vin", "fromage", "chocolat",
+            "pain", "dessert", "recette", "cérémonie", "fete", "anniversaire", "mariage", "baptème", "enterrement",
+            "f�te", "vacances", "voyage", "randonn�e", "ski", "plong�e", "natation", "course", "marche", "danse",
+            "chant", "musique", "peinture", "dessin", "sculpture", "photographie", "cin�ma", "th��tre", "lecture",
+            "�criture", "po�sie", "roman", "nouvelle", "essai", "biographie", "journal", "magazine", "revue"
+        };
+
+        private int time = 0;
+        const int maxTime = 80;
+        const int firstHintTime = 30;
+        const int secondtHintTime = 60;
+        private Dictionary<char, bool> lettersIsShow = new Dictionary<char, bool>();
+        Random random = new Random();
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            int index = random.Next(words.Count);
+
+            lettersIsShow = loadSecretWord(words[index]);
+            showLetters(lettersIsShow, words[index].ToCharArray());
         }
 
         private bool isDrawing = false;
@@ -71,46 +118,6 @@ namespace SkribbleIO
         {
             selectedWidth = trbWidth.Value;
         }
-        List<string> words = new List<string>
-        {
-            "chat", "chien", "maison", "�cole", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
-            "�toile", "mer", "rivi�re", "montagne", "colline", "for�t", "jardin", "parc", "ville", "village",
-            "campagne", "route", "chemin", "pont", "rue", "avenue", "boulevard", "place", "march�", "magasin",
-            "supermarch�", "boulangerie", "p�tisserie", "fromagerie", "boucherie", "poissonnerie", "pharmacie",
-            "h�pital", "�glise", "mosqu�e", "synagogue", "temple", "mairie", "�cole", "coll�ge", "lyc�e", "universit�",
-            "biblioth�que", "mus�e", "th��tre", "cin�ma", "stade", "parc", "jardin", "plage", "port", "gare",
-            "a�roport", "station", "m�tro", "bus", "taxi", "v�lo", "moto", "camion", "bateau", "avion", "train",
-            "pomme", "poire", "banane", "orange", "fraise", "cerise", "raisin", "past�que", "melon", "p�che",
-            "abricot", "prune", "kiwi", "mangue", "ananas", "citron", "pamplemousse", "framboise", "m�re", "myrtille",
-            "pain", "baguette", "croissant", "brioche", "tarte", "g�teau", "chocolat", "bonbon", "glace", "cr�pe",
-            "omelette", "pizza", "p�tes", "riz", "couscous", "soupe", "salade", "steak", "poulet", "poisson",
-            "viande", "jambon", "fromage", "lait", "beurre", "yaourt", "cr�me", "�uf", "farine", "sucre", "sel",
-            "poivre", "huile", "vinaigre", "moutarde", "ketchup", "mayonnaise", "th�", "caf�", "chocolat", "eau",
-            "lait", "jus", "soda", "bi�re", "vin", "champagne", "whisky", "vodka", "rhum", "tequila", "gin",
-            "ordinateur", "clavier", "souris", "�cran", "imprimante", "scanner", "t�l�phone", "tablette", "appareil",
-            "photo", "cam�ra", "t�l�vision", "radio", "enceinte", "casque", "micro", "montre", "bracelet", "collier",
-            "bague", "boucles", "cheveux", "yeux", "nez", "bouche", "oreille", "bras", "jambe", "pied", "main",
-            "doigt", "genou", "coude", "poignet", "cheville", "�paule", "ventre", "dos", "t�te", "c�ur", "poumon",
-            "foie", "estomac", "intestin", "rein", "os", "muscle", "peau", "cheveu", "ongle", "dent", "langue",
-            "�cole", "travail", "bureau", "atelier", "usine", "chantier", "entreprise", "commerce", "service", "police",
-            "pompiers", "arm�e", "justice", "banque", "assurance", "administration", "�nergie", "transport", "tourisme",
-            "art", "culture", "loisir", "sport", "musique", "danse", "th��tre", "cin�ma", "litt�rature", "peinture",
-            "sculpture", "photographie", "cin�ma", "mode", "gastronomie", "cuisine", "vin", "fromage", "chocolat",
-            "pain", "dessert", "recette", "c�r�monie", "f�te", "anniversaire", "mariage", "bapt�me", "enterrement",
-            "f�te", "vacances", "voyage", "randonn�e", "ski", "plong�e", "natation", "course", "marche", "danse",
-            "chant", "musique", "peinture", "dessin", "sculpture", "photographie", "cin�ma", "th��tre", "lecture",
-            "�criture", "po�sie", "roman", "nouvelle", "essai", "biographie", "journal", "magazine", "revue"
-        };
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            Random random = new Random();
-            int index = random.Next(words.Count);
-
-            loadSecretWord(words[index]);
-        }
-
 
 
         private Dictionary<char, bool> loadSecretWord(string secretWord)
@@ -128,9 +135,64 @@ namespace SkribbleIO
             int index = random.Next(lettersIsShow.Count);
             lettersIsShow[letters[index]] = true;
 
+            foreach (var item in lettersIsShow)
+            {
+                if (item.Value == false)
+                {
+                    lblSecretWord.Text += "_ ";
+                }
+                else
+                {
+                    lblSecretWord.Text += item.Key + " ";
+                }
+            }
+
+
             return lettersIsShow;
         }
 
 
+        private Dictionary<char, bool> showLetters(Dictionary<char, bool> lettersIsShow, char[] letters)
+        {
+            Random random = new Random();
+            int index = random.Next(lettersIsShow.Count);
+
+            if (lettersIsShow[letters[index]] == true)
+            {
+                showLetters(lettersIsShow, letters);
+            }
+            else
+            {
+                lettersIsShow[letters[index]] = true;
+            }
+
+            foreach (var item in lettersIsShow)
+            {
+                if (item.Value == false)
+                {
+                    lblSecretWord.Text += "_ ";
+                }
+                else
+                {
+                    lblSecretWord.Text += item.Key + " ";
+                }
+            }
+
+            return lettersIsShow;
+        }
+
+        private void tmrClock_Tick(object sender, EventArgs e)
+        {
+            time++;
+
+          
+
+
+            if (time == firstHintTime || time == secondtHintTime)
+            {
+                showLetters(lettersIsShow, words[index].ToCharArray());
+            }
+
+        }
     }
 }

@@ -30,8 +30,8 @@ namespace SkribbleIO
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             pbxCanvas = new PictureBox();
             trbWidth = new TrackBar();
             btnSendMessage = new Button();
@@ -39,7 +39,6 @@ namespace SkribbleIO
             lbxPlayer = new ListBox();
             lblSecretWord = new Label();
             lblClock = new Label();
-            btnPen = new Button();
             btnEraser = new Button();
             btnRed = new Button();
             btnBlack = new Button();
@@ -57,7 +56,7 @@ namespace SkribbleIO
             // 
             pbxCanvas.BackColor = Color.White;
             pbxCanvas.Image = (Image)resources.GetObject("pbxCanvas.Image");
-            pbxCanvas.Location = new Point(174, 59);
+            pbxCanvas.Location = new Point(205, 59);
             pbxCanvas.Name = "pbxCanvas";
             pbxCanvas.Size = new Size(880, 545);
             pbxCanvas.TabIndex = 0;
@@ -65,7 +64,6 @@ namespace SkribbleIO
             pbxCanvas.MouseDown += pbxCanvas_MouseDown;
             pbxCanvas.MouseMove += pbxCanvas_MouseMove;
             pbxCanvas.MouseUp += pbxCanvas_MouseUp;
-
             // 
             // trbWidth
             // 
@@ -122,16 +120,6 @@ namespace SkribbleIO
             lblClock.Size = new Size(189, 44);
             lblClock.TabIndex = 4;
             lblClock.Text = "label2";
-            // 
-            // btnPen
-            // 
-            btnPen.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnPen.Location = new Point(207, 610);
-            btnPen.Name = "btnPen";
-            btnPen.Size = new Size(75, 53);
-            btnPen.TabIndex = 6;
-            btnPen.Text = "🖊️";
-            btnPen.UseVisualStyleBackColor = true;
             // 
             // btnEraser
             // 
@@ -209,12 +197,13 @@ namespace SkribbleIO
             // tmrClock
             // 
             tmrClock.Interval = 1000;
+            tmrClock.Tick += tmrClock_Tick;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Desktop;
+            BackColor = Color.White;
             ClientSize = new Size(1304, 672);
             Controls.Add(trbWidth);
             Controls.Add(pbxCanvas);
@@ -226,7 +215,6 @@ namespace SkribbleIO
             Controls.Add(btnBlack);
             Controls.Add(btnRed);
             Controls.Add(btnEraser);
-            Controls.Add(pbxCanva);
             Controls.Add(lblClock);
             Controls.Add(lblSecretWord);
             Controls.Add(lbxPlayer);
@@ -250,7 +238,7 @@ namespace SkribbleIO
         private ListBox lbxPlayer;
         private Label lblSecretWord;
         private Label lblClock;
-        private Button btnPen;
+ 
         private Button btnEraser;
         private Button btnRed;
         private Button btnBlack;
