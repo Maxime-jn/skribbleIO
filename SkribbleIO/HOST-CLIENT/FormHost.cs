@@ -16,5 +16,10 @@ namespace SkribbleIO.HOST_CLIENT
         {
             InitializeComponent();
         }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

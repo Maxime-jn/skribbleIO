@@ -126,6 +126,7 @@
             btnStart.TabIndex = 9;
             btnStart.Text = "Start!";
             btnStart.UseVisualStyleBackColor = true;
+            btnStart.Click += btnStart_Click;
             // 
             // FormHost
             // 
