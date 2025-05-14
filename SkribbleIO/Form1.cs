@@ -458,5 +458,40 @@ namespace SkribbleIO
         {
             ChangeColor("cyan");
         }
+
+        private void btnBlack_Click(object sender, EventArgs e)
+        {
+            ChangeColor("black");
+        }
+
+        private void btnRed_Click(object sender, EventArgs e)
+        {
+            ChangeColor("red");
+        }
+
+        private void btnBlue_Click(object sender, EventArgs e)
+        {
+            ChangeColor("blue");
+        }
+
+        private void btnGreen_Click(object sender, EventArgs e)
+        {
+            ChangeColor("green");
+        }
+
+        private void btnGold_Click(object sender, EventArgs e)
+        {
+            ChangeColor("gold");
+        }
+
+        private void btnMagenta_Click(object sender, EventArgs e)
+        {
+            ChangeColor("magenta");
+        }
+
+        private void btnCyan_Click(object sender, EventArgs e)
+        {
+            ChangeColor("cyan");
+        }
     }
 }
