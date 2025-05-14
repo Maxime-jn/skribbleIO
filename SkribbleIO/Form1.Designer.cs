@@ -299,7 +299,6 @@ namespace SkribbleIO
         private TextBox tbxMessage;
         private System.Windows.Forms.Timer tmrClock;
         private Button btnPen;
-        private Button btnEraser;
         private Button btnCyan;
     }
 }

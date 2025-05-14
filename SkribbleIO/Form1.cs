@@ -55,6 +55,8 @@ namespace SkribbleIO
 
             lettersIsShow = loadSecretWord(words[index]);
             showLetters(lettersIsShow, words[index].ToCharArray());
+
+            loadSecretWord(words[index]);
         }
 
         private bool isDrawing = false;
@@ -135,14 +137,7 @@ namespace SkribbleIO
             selectedWidth = trbWidth.Value;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            Random random = new Random();
-            int index = random.Next(words.Count);
-
-            loadSecretWord(words[index]);
-        }
+ 
 
 
 
@@ -211,12 +206,11 @@ namespace SkribbleIO
         {
             time++;
 
-          
-
+         
 
             if (time == firstHintTime || time == secondtHintTime)
             {
-                showLetters(lettersIsShow, words[index].ToCharArray());
+                //showLetters(lettersIsShow, words[index].ToCharArray());
             }
 
         }
