@@ -125,7 +125,6 @@ namespace SkribbleIO
             lblClock.Name = "lblClock";
             lblClock.Size = new Size(189, 44);
             lblClock.TabIndex = 4;
-            lblClock.Text = "label2";
             // 
             // btnEraser
             // 

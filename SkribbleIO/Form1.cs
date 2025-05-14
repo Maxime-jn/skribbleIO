@@ -64,7 +64,7 @@ namespace SkribbleIO
             loadSecretWord(words[index]);
             string secretWord = words[index];
 
-           
+            lblClock.Text = maxTime.ToString() + "s";
 
             tmrClock.Start();
             chooseDrawer();
@@ -87,7 +87,7 @@ namespace SkribbleIO
             switch (color)
             {
                 case "black":
-                    if (colorBtnSelected == btnBlack) {btnBlack.FlatAppearance.BorderSize = 3; return; }
+                    if (colorBtnSelected == btnBlack) { btnBlack.FlatAppearance.BorderSize = 3; return; }
                     selectedColor = Color.Black;
                     btnBlack.FlatAppearance.BorderSize = 3;
                     colorBtnSelected = btnBlack;
@@ -283,7 +283,7 @@ namespace SkribbleIO
                 canDraw = true;
                 ChangeColor("white");
                 btnEraser.BackColor = Color.DodgerBlue;
-                
+
             }
             trbWidth.Value = 50;
         }
@@ -364,8 +364,14 @@ namespace SkribbleIO
 
         private void tmrClock_Tick(object sender, EventArgs e)
         {
+            if (time >= maxTime)
+            {
+                tmrClock.Stop();
+                MessageBox.Show("Le temps est écoulé !", "Fin du jeu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             time++;
-
+            lblClock.Text = (maxTime - time).ToString() + "s";
 
 
             if (time == firstHintTime || time == secondtHintTime)
@@ -378,7 +384,7 @@ namespace SkribbleIO
             }
         }
 
-        
+
 
         private void chooseDrawer()
         {
