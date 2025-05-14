@@ -49,7 +49,6 @@ namespace SkribbleIO
             tbxMessage = new TextBox();
             tmrClock = new System.Windows.Forms.Timer(components);
             btnPen = new Button();
-            btnEraser = new Button();
             btnCyan = new Button();
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).BeginInit();
@@ -87,7 +86,9 @@ namespace SkribbleIO
             btnSendMessage.Name = "btnSendMessage";
             btnSendMessage.Size = new Size(189, 26);
             btnSendMessage.TabIndex = 0;
+            btnSendMessage.Text = "Envoyer";
             btnSendMessage.UseVisualStyleBackColor = true;
+            btnSendMessage.Click += btnSendMessage_Click;
             // 
             // lbxChat
             // 
@@ -126,14 +127,15 @@ namespace SkribbleIO
             // 
             // btnEraser
             // 
-            btnEraser.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEraser.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEraser.ForeColor = Color.Black;
-            btnEraser.Location = new Point(288, 610);
+            btnEraser.Location = new Point(306, 610);
             btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(75, 53);
-            btnEraser.TabIndex = 7;
+            btnEraser.Size = new Size(57, 53);
+            btnEraser.TabIndex = 17;
             btnEraser.Text = "\U0001f9fd";
             btnEraser.UseVisualStyleBackColor = true;
+            btnEraser.Click += btnEraser_Click;
             // 
             // btnRed
             // 
@@ -224,17 +226,6 @@ namespace SkribbleIO
             btnPen.UseVisualStyleBackColor = true;
             btnPen.Click += btnPen_Click;
             // 
-            // btnEraser
-            // 
-            btnEraser.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEraser.Location = new Point(306, 610);
-            btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(57, 53);
-            btnEraser.TabIndex = 17;
-            btnEraser.Text = "\U0001f9fd";
-            btnEraser.UseVisualStyleBackColor = true;
-            btnEraser.Click += btnEraser_Click;
-            // 
             // btnCyan
             // 
             btnCyan.BackColor = Color.Cyan;
@@ -253,7 +244,6 @@ namespace SkribbleIO
             BackColor = Color.White;
             ClientSize = new Size(1304, 672);
             Controls.Add(btnCyan);
-            Controls.Add(btnEraser);
             Controls.Add(btnPen);
             Controls.Add(trbWidth);
             Controls.Add(pbxCanvas);

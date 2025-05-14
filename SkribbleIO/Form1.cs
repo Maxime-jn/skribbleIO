@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using System.Drawing.Text;
 using System;
+using System.Reflection.Metadata;
 
 namespace SkribbleIO
 {
@@ -10,7 +11,7 @@ namespace SkribbleIO
         {
             InitializeComponent();
         }
-
+        private string secretword;
         List<string> words = new List<string>
         {
             "chat", "chien", "maison", "école", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
@@ -57,6 +58,9 @@ namespace SkribbleIO
             showLetters(lettersIsShow, words[index].ToCharArray());
 
             loadSecretWord(words[index]);
+
+            secretword = words[index];
+
         }
 
         private bool isDrawing = false;
@@ -218,6 +222,21 @@ namespace SkribbleIO
                     string currentWord = new string(lettersIsShow.Keys.ToArray());
                     showLetters(lettersIsShow, currentWord.ToCharArray());
                 }
+            }
+        }
+
+        private void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            string message = tbxMessage.Text;
+            if (message == secretword)
+            {
+                MessageBox.Show("Bonne reponse");
+                lblSecretWord.Text = secretword;
+            }
+            else { 
+
+                lblSecretWord.Text = secretword;
+            lbxChat.Items.Add(message);
             }
         }
     }
