@@ -64,7 +64,7 @@ namespace SkribbleIO
             loadSecretWord(words[index]);
             string secretWord = words[index];
 
-           
+
 
             tmrClock.Start();
             chooseDrawer();
@@ -87,7 +87,7 @@ namespace SkribbleIO
             switch (color)
             {
                 case "black":
-                    if (colorBtnSelected == btnBlack) {btnBlack.FlatAppearance.BorderSize = 3; return; }
+                    if (colorBtnSelected == btnBlack) { btnBlack.FlatAppearance.BorderSize = 3; return; }
                     selectedColor = Color.Black;
                     btnBlack.FlatAppearance.BorderSize = 3;
                     colorBtnSelected = btnBlack;
@@ -283,7 +283,7 @@ namespace SkribbleIO
                 canDraw = true;
                 ChangeColor("white");
                 btnEraser.BackColor = Color.DodgerBlue;
-                
+
             }
             trbWidth.Value = 50;
         }
@@ -378,7 +378,7 @@ namespace SkribbleIO
             }
         }
 
-        
+
 
         private void chooseDrawer()
         {
@@ -424,74 +424,5 @@ namespace SkribbleIO
             ChangeColor("cyan");
         }
 
-        private void btnBlack_Click(object sender, EventArgs e)
-        {
-            ChangeColor("black");
-        }
-
-        private void btnRed_Click(object sender, EventArgs e)
-        {
-            ChangeColor("red");
-        }
-
-        private void btnBlue_Click(object sender, EventArgs e)
-        {
-            ChangeColor("blue");
-        }
-
-        private void btnGreen_Click(object sender, EventArgs e)
-        {
-            ChangeColor("green");
-        }
-
-        private void btnGold_Click(object sender, EventArgs e)
-        {
-            ChangeColor("gold");
-        }
-
-        private void btnMagenta_Click(object sender, EventArgs e)
-        {
-            ChangeColor("magenta");
-        }
-
-        private void btnCyan_Click(object sender, EventArgs e)
-        {
-            ChangeColor("cyan");
-        }
-
-        private void btnBlack_Click(object sender, EventArgs e)
-        {
-            ChangeColor("black");
-        }
-
-        private void btnRed_Click(object sender, EventArgs e)
-        {
-            ChangeColor("red");
-        }
-
-        private void btnBlue_Click(object sender, EventArgs e)
-        {
-            ChangeColor("blue");
-        }
-
-        private void btnGreen_Click(object sender, EventArgs e)
-        {
-            ChangeColor("green");
-        }
-
-        private void btnGold_Click(object sender, EventArgs e)
-        {
-            ChangeColor("gold");
-        }
-
-        private void btnMagenta_Click(object sender, EventArgs e)
-        {
-            ChangeColor("magenta");
-        }
-
-        private void btnCyan_Click(object sender, EventArgs e)
-        {
-            ChangeColor("cyan");
-        }
     }
 }
