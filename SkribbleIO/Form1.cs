@@ -61,6 +61,22 @@ namespace SkribbleIO
         private Point lastPoint = Point.Empty;
         private Color selectedColor = Color.Black;
         private int selectedWidth = 5;
+        private Button colorBtnSelected = null;
+        private void ChangeColor(string color)
+        {
+            switch (color)
+            {
+                case "red":
+                    selectedColor = Color.Red;
+                    
+                    break;
+                case "green":
+                    selectedColor = Color.Green;
+                    break;
+                
+            }
+        }
+
         private void pbxCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDrawing && pbxCanvas.Image != null)
@@ -111,13 +127,23 @@ namespace SkribbleIO
         private void btnEraser_Click(object sender, EventArgs e)
         {
             selectedColor = Color.White; // Utilise la couleur de fond pour effacer
-
+            trbWidth.Value = 50;
         }
 
         private void trbWidth_Scroll(object sender, EventArgs e)
         {
             selectedWidth = trbWidth.Value;
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            Random random = new Random();
+            int index = random.Next(words.Count);
+
+            loadSecretWord(words[index]);
+        }
+
 
 
         private Dictionary<char, bool> loadSecretWord(string secretWord)
