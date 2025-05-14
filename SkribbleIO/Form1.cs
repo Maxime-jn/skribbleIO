@@ -13,34 +13,34 @@ namespace SkribbleIO
 
         List<string> words = new List<string>
         {
-            "chat", "chien", "maison", "�cole", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
-            "étoile", "mer", "rivière", "montagne", "colline", "foret", "jardin", "parc", "ville", "village",
-            "campagne", "route", "chemin", "pont", "rue", "avenue", "boulevard", "place", "march�", "magasin",
-            "supermarch�", "boulangerie", "patisserie", "fromagerie", "boucherie", "poissonnerie", "pharmacie",
-            "hopital", "église", "mosquée", "synagogue", "temple", "mairie", "école", "collège", "lycée", "université",
-            "bibliothèque", "musée", "théatre", "cinéma", "stade", "parc", "jardin", "plage", "port", "gare",
-            "a�roport", "station", "métro", "bus", "taxi", "vélo", "moto", "camion", "bateau", "avion", "train",
-            "pomme", "poire", "banane", "orange", "fraise", "cerise", "raisin", "pastèque", "melon", "pèche",
-            "abricot", "prune", "kiwi", "mangue", "ananas", "citron", "pamplemousse", "framboise", "mare", "myrtille",
-            "pain", "baguette", "croissant", "brioche", "tarte", "gateau", "chocolat", "bonbon", "glace", "crèpe",
-            "omelette", "pizza", "pates", "riz", "couscous", "soupe", "salade", "steak", "poulet", "poisson",
-            "viande", "jambon", "fromage", "lait", "beurre", "yaourt", "crème", "ouf", "farine", "sucre", "sel",
-            "poivre", "huile", "vinaigre", "moutarde", "ketchup", "mayonnaise", "thé", "café", "chocolat", "eau",
-            "lait", "jus", "soda", "bière", "vin", "champagne", "whisky", "vodka", "rhum", "tequila", "gin",
+            "chat", "chien", "maison", "école", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
+            "étoile", "mer", "rivière", "montagne", "colline", "forêt", "jardin", "parc", "ville", "village",
+            "campagne", "route", "chemin", "pont", "rue", "avenue", "boulevard", "place", "marché", "magasin",
+            "supermarché", "boulangerie", "pâtisserie", "fromagerie", "boucherie", "poissonnerie", "pharmacie",
+            "hôpital", "mosquée", "synagogue", "temple", "mairie", "collège", "lycée", "université",
+            "bibliothèque", "musée", "théâtre", "cinéma", "stade", "plage", "port", "gare",
+            "aéroport", "station", "métro", "bus", "taxi", "vélo", "moto", "camion", "bateau", "avion", "train",
+            "pomme", "poire", "banane", "orange", "fraise", "cerise", "raisin", "pastèque", "melon", "pêche",
+            "abricot", "prune", "kiwi", "mangue", "ananas", "citron", "pamplemousse", "framboise", "mûre", "myrtille",
+            "pain", "baguette", "croissant", "brioche", "tarte", "gâteau", "chocolat", "bonbon", "glace", "crêpe",
+            "omelette", "pizza", "pâtes", "riz", "couscous", "soupe", "salade", "steak", "poulet", "poisson",
+            "viande", "jambon", "fromage", "lait", "beurre", "yaourt", "crème", "œuf", "farine", "sucre", "sel",
+            "poivre", "huile", "vinaigre", "moutarde", "ketchup", "mayonnaise", "thé", "café", "eau",
+            "jus", "soda", "bière", "vin", "champagne", "whisky", "vodka", "rhum", "tequila", "gin",
             "ordinateur", "clavier", "souris", "écran", "imprimante", "scanner", "téléphone", "tablette", "appareil",
             "photo", "caméra", "télévision", "radio", "enceinte", "casque", "micro", "montre", "bracelet", "collier",
             "bague", "boucles", "cheveux", "yeux", "nez", "bouche", "oreille", "bras", "jambe", "pied", "main",
-            "doigt", "genou", "coude", "poignet", "cheville", "épaule", "ventre", "dos", "téte", "cour", "poumon",
+            "doigt", "genou", "coude", "poignet", "cheville", "épaule", "ventre", "dos", "tête", "cœur", "poumon",
             "foie", "estomac", "intestin", "rein", "os", "muscle", "peau", "cheveu", "ongle", "dent", "langue",
-            "école", "travail", "bureau", "atelier", "usine", "chantier", "entreprise", "commerce", "service", "police",
+            "travail", "bureau", "atelier", "usine", "chantier", "entreprise", "commerce", "service", "police",
             "pompiers", "armée", "justice", "banque", "assurance", "administration", "énergie", "transport", "tourisme",
-            "art", "culture", "loisir", "sport", "musique", "danse", "théatre", "cinéma", "littérature", "peinture",
-            "sculpture", "photographie", "cinéma", "mode", "gastronomie", "cuisine", "vin", "fromage", "chocolat",
-            "pain", "dessert", "recette", "cérémonie", "fete", "anniversaire", "mariage", "baptème", "enterrement",
-            "f�te", "vacances", "voyage", "randonn�e", "ski", "plong�e", "natation", "course", "marche", "danse",
-            "chant", "musique", "peinture", "dessin", "sculpture", "photographie", "cin�ma", "th��tre", "lecture",
-            "�criture", "po�sie", "roman", "nouvelle", "essai", "biographie", "journal", "magazine", "revue"
+            "art", "culture", "loisir", "sport", "musique", "danse", "littérature", "peinture",
+            "sculpture", "photographie", "mode", "gastronomie", "cuisine", "dessert", "recette", "cérémonie", "fête",
+            "anniversaire", "mariage", "baptême", "enterrement", "vacances", "voyage", "randonnée", "ski", "plongée",
+            "natation", "course", "marche", "chant", "dessin", "écriture", "poésie", "roman", "nouvelle", "essai",
+            "biographie", "journal", "magazine", "revue"
         };
+
 
         private int time = 0;
         const int maxTime = 80;
@@ -70,12 +70,12 @@ namespace SkribbleIO
             {
                 case "red":
                     selectedColor = Color.Red;
-                    
+
                     break;
                 case "green":
                     selectedColor = Color.Green;
                     break;
-                
+
             }
         }
 
@@ -137,7 +137,7 @@ namespace SkribbleIO
             selectedWidth = trbWidth.Value;
         }
 
- 
+
 
 
 
@@ -176,26 +176,30 @@ namespace SkribbleIO
         private Dictionary<char, bool> showLetters(Dictionary<char, bool> lettersIsShow, char[] letters)
         {
             Random random = new Random();
-            int index = random.Next(lettersIsShow.Count);
+            int index;
 
-            if (lettersIsShow[letters[index]] == true)
+            // Ensure we find a letter that hasn't been revealed yet  
+            do
             {
-                showLetters(lettersIsShow, letters);
-            }
-            else
-            {
-                lettersIsShow[letters[index]] = true;
-            }
+                index = random.Next(letters.Length);
+            } while (lettersIsShow[letters[index]]);
 
-            foreach (var item in lettersIsShow)
+            // Reveal the selected letter  
+            lettersIsShow[letters[index]] = true;
+
+            // Clear the label text before updating it  
+            lblSecretWord.Text = "";
+
+            // Update the label with the current state of the word  
+            foreach (var item in letters)
             {
-                if (item.Value == false)
+                if (lettersIsShow[item])
                 {
-                    lblSecretWord.Text += "_ ";
+                    lblSecretWord.Text += item + " ";
                 }
                 else
                 {
-                    lblSecretWord.Text += item.Key + " ";
+                    lblSecretWord.Text += "_ ";
                 }
             }
 
@@ -206,13 +210,15 @@ namespace SkribbleIO
         {
             time++;
 
-         
-
             if (time == firstHintTime || time == secondtHintTime)
             {
-                //showLetters(lettersIsShow, words[index].ToCharArray());
+                // Ensure the word is not null or empty before calling showLetters  
+                if (lettersIsShow != null && words.Count > 0)
+                {
+                    string currentWord = new string(lettersIsShow.Keys.ToArray());
+                    showLetters(lettersIsShow, currentWord.ToCharArray());
+                }
             }
-
         }
     }
 }
