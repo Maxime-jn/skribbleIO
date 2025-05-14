@@ -42,6 +42,10 @@ namespace SkribbleIO
             "biographie", "journal", "magazine", "revue"
         };
 
+        List<string> players = new List<string>
+        {
+            "Joueur1","Joueur2","Joueur3","Joueur4"
+        };
 
         private int time = 0;
         const int maxTime = 80;
@@ -55,12 +59,15 @@ namespace SkribbleIO
             int index = random.Next(words.Count);
 
             lettersIsShow = loadSecretWord(words[index]);
-            showLetters(lettersIsShow, words[index].ToCharArray());
+
 
             loadSecretWord(words[index]);
+            string secretWord = words[index];
 
-            secretword = words[index];
+           
 
+            tmrClock.Start();
+            chooseDrawer();
         }
 
         private bool isDrawing = false;
@@ -68,6 +75,7 @@ namespace SkribbleIO
         private Color selectedColor = Color.Black;
         private int selectedWidth = 5;
         private Button colorBtnSelected = null;
+
         private void ChangeColor(string color)
         {
             switch (color)
@@ -151,27 +159,24 @@ namespace SkribbleIO
 
             char[] letters = secretWord.ToCharArray();
 
-            foreach (var item in letters)
+            foreach (var letter in letters)
             {
-                lettersIsShow[item] = false;
+                lettersIsShow[letter] = false;
             }
 
-            Random random = new Random();
-            int index = random.Next(lettersIsShow.Count);
-            lettersIsShow[letters[index]] = true;
+            lblSecretWord.Text = ""; // Réinitialise le texte avant de le remplir  
 
-            foreach (var item in lettersIsShow)
+            foreach (var letter in letters)
             {
-                if (item.Value == false)
+                if (lettersIsShow[letter] == false)
                 {
                     lblSecretWord.Text += "_ ";
                 }
                 else
                 {
-                    lblSecretWord.Text += item.Key + " ";
+                    lblSecretWord.Text += letter + " ";
                 }
             }
-
 
             return lettersIsShow;
         }
@@ -210,13 +215,15 @@ namespace SkribbleIO
             return lettersIsShow;
         }
 
+
+
+
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             time++;
 
             if (time == firstHintTime || time == secondtHintTime)
             {
-                // Ensure the word is not null or empty before calling showLetters  
                 if (lettersIsShow != null && words.Count > 0)
                 {
                     string currentWord = new string(lettersIsShow.Keys.ToArray());
@@ -228,16 +235,25 @@ namespace SkribbleIO
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
             string message = tbxMessage.Text;
-            if (message == secretword)
+            if (message == secretWord)
             {
                 MessageBox.Show("Bonne reponse");
-                lblSecretWord.Text = secretword;
+                lblSecretWord.Text = secretWord;
             }
             else { 
 
-                lblSecretWord.Text = secretword;
+                lblSecretWord.Text = secretWord;
             lbxChat.Items.Add(message);
             }
+        
+
+        private void chooseDrawer()
+        {
+            Random random = new Random();
+            int index = random.Next(0, players.Count);
+            string drawer = players[index];
+            // Afficher le nom du dessinateur dans une boîte de message
+            MessageBox.Show($"Le dessinateur est : {drawer}", "Dessinateur Choisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
