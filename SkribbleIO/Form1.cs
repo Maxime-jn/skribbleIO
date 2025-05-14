@@ -50,6 +50,7 @@ namespace SkribbleIO
         const int maxTime = 80;
         const int firstHintTime = 30;
         const int secondtHintTime = 60;
+
         private Dictionary<char, bool> lettersIsShow = new Dictionary<char, bool>();
         Random random = new Random();
 
@@ -67,26 +68,111 @@ namespace SkribbleIO
 
             tmrClock.Start();
             chooseDrawer();
+            colorBtnSelected = btnBlack;
         }
 
         private bool isDrawing = false;
+        private bool canDraw = false;
         private Point lastPoint = Point.Empty;
         private Color selectedColor = Color.Black;
         private int selectedWidth = 5;
-        private Button colorBtnSelected = null;
-
+        private string? selectedTool = null;
+        private Button? colorBtnSelected = null;
         private void ChangeColor(string color)
         {
+            if (colorBtnSelected != null)
+            {
+                colorBtnSelected.FlatAppearance.BorderSize = 0;
+            }
             switch (color)
             {
+                case "black":
+                    if (colorBtnSelected == btnBlack) {btnBlack.FlatAppearance.BorderSize = 3; return; }
+                    selectedColor = Color.Black;
+                    btnBlack.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnBlack;
+                    break;
                 case "red":
+                    if (colorBtnSelected == btnRed)
+                    {
+                        colorBtnSelected.FlatAppearance.BorderSize = 0;
+                        colorBtnSelected = null;
+                        ChangeColor("black");
+                        return;
+                    }
                     selectedColor = Color.Red;
-
+                    btnRed.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnRed;
                     break;
                 case "green":
+                    if (colorBtnSelected == btnGreen)
+                    {
+                        colorBtnSelected.FlatAppearance.BorderSize = 0;
+                        colorBtnSelected = null;
+                        ChangeColor("black");
+                        return;
+                    }
                     selectedColor = Color.Green;
+                    btnGreen.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnGreen;
                     break;
-
+                case "blue":
+                    if (colorBtnSelected == btnBlue)
+                    {
+                        colorBtnSelected.FlatAppearance.BorderSize = 0;
+                        colorBtnSelected = null;
+                        ChangeColor("black");
+                        return;
+                    }
+                    selectedColor = Color.Blue;
+                    btnBlue.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnBlue;
+                    break;
+                case "gold":
+                    if (colorBtnSelected == btnGold)
+                    {
+                        colorBtnSelected.FlatAppearance.BorderSize = 0;
+                        colorBtnSelected = null;
+                        ChangeColor("black");
+                        return;
+                    }
+                    selectedColor = Color.Gold;
+                    btnGold.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnGold;
+                    break;
+                case "magenta":
+                    if (colorBtnSelected == btnMagenta)
+                    {
+                        colorBtnSelected.FlatAppearance.BorderSize = 0;
+                        colorBtnSelected = null;
+                        ChangeColor("black");
+                        return;
+                    }
+                    selectedColor = Color.Magenta;
+                    btnMagenta.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnMagenta;
+                    break;
+                case "cyan":
+                    if (colorBtnSelected == btnCyan)
+                    {
+                        colorBtnSelected.FlatAppearance.BorderSize = 0;
+                        colorBtnSelected = null;
+                        ChangeColor("black");
+                        return;
+                    }
+                    selectedColor = Color.Cyan;
+                    btnCyan.FlatAppearance.BorderSize = 3;
+                    colorBtnSelected = btnCyan;
+                    break;
+                case "white":
+                    if (btnEraser.BackColor == Color.DodgerBlue)
+                    {
+                        colorBtnSelected.PerformClick();
+                        colorBtnSelected = null;
+                        return;
+                    }
+                    selectedColor = Color.White;
+                    break;
             }
         }
 
@@ -115,12 +201,16 @@ namespace SkribbleIO
         }
         private void pbxCanvas_MouseDown(object sender, MouseEventArgs e)
         {
-            // Handle mouse down event
-            if (e.Button == MouseButtons.Left)
+            if (canDraw)
             {
-                isDrawing = true;
-                lastPoint = e.Location;
+                // Handle mouse down event
+                if (e.Button == MouseButtons.Left)
+                {
+                    isDrawing = true;
+                    lastPoint = e.Location;
+                }
             }
+
         }
 
         private void pbxCanvas_MouseUp(object sender, MouseEventArgs e)
@@ -134,12 +224,67 @@ namespace SkribbleIO
 
         private void btnPen_Click(object sender, EventArgs e)
         {
-            selectedColor = Color.Black;
+            if (canDraw)
+            {
+                if (btnEraser.BackColor == Color.DodgerBlue)
+                {
+                    // selectionner avec déselection
+                    btnEraser.BackColor = Color.White;
+                }
+                if (btnPen.BackColor == Color.DodgerBlue)
+                {
+                    // deselectionner la gomme
+                    canDraw = false;
+                    btnPen.BackColor = Color.White;
+                }
+                else
+                {
+                    canDraw = true;
+                    btnPen.BackColor = Color.DodgerBlue;
+                    ChangeColor("black");
+                }
+            }
+            else
+            {
+                // selectionner sans rien deselectionner
+                canDraw = true;
+                btnPen.BackColor = Color.DodgerBlue;
+                ChangeColor("black");
+            }
         }
 
         private void btnEraser_Click(object sender, EventArgs e)
         {
-            selectedColor = Color.White; // Utilise la couleur de fond pour effacer
+            if (canDraw)
+            {
+                if (btnPen.BackColor == Color.DodgerBlue)
+                {
+                    // selectionner avec déselection
+                    btnPen.BackColor = Color.White;
+                }
+                if (btnEraser.BackColor == Color.DodgerBlue)
+                {
+                    // deselectionner la gomme
+                    canDraw = false;
+                    ChangeColor("white");
+                    btnEraser.BackColor = Color.White;
+                }
+                else
+                {
+                    canDraw = true;
+                    ChangeColor("white");
+                    btnEraser.BackColor = Color.DodgerBlue;
+
+                }
+            }
+            else
+            {
+                // selectionner sans rien deselectionner
+                canDraw = true;
+                ChangeColor("white");
+                btnEraser.BackColor = Color.DodgerBlue;
+                
+            }
             trbWidth.Value = 50;
         }
 
@@ -221,6 +366,8 @@ namespace SkribbleIO
         {
             time++;
 
+
+
             if (time == firstHintTime || time == secondtHintTime)
             {
                 if (lettersIsShow != null && words.Count > 0)
@@ -240,6 +387,41 @@ namespace SkribbleIO
             string drawer = players[index];
             // Afficher le nom du dessinateur dans une boîte de message
             MessageBox.Show($"Le dessinateur est : {drawer}", "Dessinateur Choisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnBlack_Click(object sender, EventArgs e)
+        {
+            ChangeColor("black");
+        }
+
+        private void btnRed_Click(object sender, EventArgs e)
+        {
+            ChangeColor("red");
+        }
+
+        private void btnBlue_Click(object sender, EventArgs e)
+        {
+            ChangeColor("blue");
+        }
+
+        private void btnGreen_Click(object sender, EventArgs e)
+        {
+            ChangeColor("green");
+        }
+
+        private void btnGold_Click(object sender, EventArgs e)
+        {
+            ChangeColor("gold");
+        }
+
+        private void btnMagenta_Click(object sender, EventArgs e)
+        {
+            ChangeColor("magenta");
+        }
+
+        private void btnCyan_Click(object sender, EventArgs e)
+        {
+            ChangeColor("cyan");
         }
     }
 }

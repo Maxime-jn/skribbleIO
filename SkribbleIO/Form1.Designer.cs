@@ -44,13 +44,15 @@ namespace SkribbleIO
             btnBlack = new Button();
             btnBlue = new Button();
             btnGreen = new Button();
-            btnRose = new Button();
-            btnYellow = new Button();
+            btnMagenta = new Button();
+            btnGold = new Button();
             tbxMessage = new TextBox();
             tmrClock = new System.Windows.Forms.Timer(components);
             btnPen = new Button();
-            btnEraser = new Button();
             btnCyan = new Button();
+            pnlWidthIcon3 = new Panel();
+            pnlWidthIcon2 = new Panel();
+            pnlWidthIcon1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).BeginInit();
             SuspendLayout();
@@ -70,6 +72,7 @@ namespace SkribbleIO
             // 
             // trbWidth
             // 
+            trbWidth.Cursor = Cursors.NoMoveHoriz;
             trbWidth.LargeChange = 10;
             trbWidth.Location = new Point(708, 623);
             trbWidth.Maximum = 150;
@@ -126,80 +129,97 @@ namespace SkribbleIO
             // 
             // btnEraser
             // 
-            btnEraser.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEraser.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEraser.ForeColor = Color.Black;
-            btnEraser.Location = new Point(288, 610);
+            btnEraser.Location = new Point(301, 610);
             btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(75, 53);
-            btnEraser.TabIndex = 7;
+            btnEraser.Size = new Size(54, 53);
+            btnEraser.TabIndex = 17;
             btnEraser.Text = "\U0001f9fd";
             btnEraser.UseVisualStyleBackColor = true;
+            btnEraser.Click += btnEraser_Click;
             // 
             // btnRed
             // 
             btnRed.BackColor = Color.Red;
             btnRed.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
-            btnRed.FlatAppearance.BorderSize = 3;
+            btnRed.FlatAppearance.BorderSize = 0;
             btnRed.FlatStyle = FlatStyle.Flat;
             btnRed.Location = new Point(410, 610);
             btnRed.Name = "btnRed";
             btnRed.Size = new Size(35, 28);
             btnRed.TabIndex = 8;
             btnRed.UseVisualStyleBackColor = false;
+            btnRed.Click += btnRed_Click;
             // 
             // btnBlack
             // 
             btnBlack.BackColor = Color.Black;
+            btnBlack.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
+            btnBlack.FlatAppearance.BorderSize = 3;
             btnBlack.FlatStyle = FlatStyle.Flat;
             btnBlack.Location = new Point(369, 610);
             btnBlack.Name = "btnBlack";
             btnBlack.Size = new Size(35, 28);
             btnBlack.TabIndex = 9;
             btnBlack.UseVisualStyleBackColor = false;
+            btnBlack.Click += btnBlack_Click;
             // 
             // btnBlue
             // 
             btnBlue.BackColor = Color.Blue;
+            btnBlue.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
+            btnBlue.FlatAppearance.BorderSize = 0;
             btnBlue.FlatStyle = FlatStyle.Flat;
-            btnBlue.ForeColor = Color.FromArgb(19, 63, 140);
+            btnBlue.ForeColor = Color.Black;
             btnBlue.Location = new Point(451, 610);
             btnBlue.Name = "btnBlue";
             btnBlue.Size = new Size(35, 28);
             btnBlue.TabIndex = 10;
             btnBlue.UseVisualStyleBackColor = false;
+            btnBlue.Click += btnBlue_Click;
             // 
             // btnGreen
             // 
             btnGreen.BackColor = Color.Green;
+            btnGreen.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
+            btnGreen.FlatAppearance.BorderSize = 0;
             btnGreen.FlatStyle = FlatStyle.Flat;
-            btnGreen.ForeColor = Color.FromArgb(19, 63, 140);
+            btnGreen.ForeColor = Color.Black;
             btnGreen.Location = new Point(492, 610);
             btnGreen.Name = "btnGreen";
             btnGreen.Size = new Size(35, 28);
             btnGreen.TabIndex = 11;
             btnGreen.UseVisualStyleBackColor = false;
+            btnGreen.Click += btnGreen_Click;
             // 
-            // btnRose
+            // btnMagenta
             // 
-            btnRose.BackColor = Color.Magenta;
-            btnRose.FlatStyle = FlatStyle.Flat;
-            btnRose.ForeColor = Color.FromArgb(19, 63, 140);
-            btnRose.Location = new Point(574, 610);
-            btnRose.Name = "btnRose";
-            btnRose.Size = new Size(35, 28);
-            btnRose.TabIndex = 13;
-            btnRose.UseVisualStyleBackColor = false;
+            btnMagenta.BackColor = Color.Magenta;
+            btnMagenta.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
+            btnMagenta.FlatAppearance.BorderSize = 0;
+            btnMagenta.FlatStyle = FlatStyle.Flat;
+            btnMagenta.ForeColor = Color.Black;
+            btnMagenta.Location = new Point(574, 610);
+            btnMagenta.Name = "btnMagenta";
+            btnMagenta.Size = new Size(35, 28);
+            btnMagenta.TabIndex = 13;
+            btnMagenta.UseVisualStyleBackColor = false;
+            btnMagenta.Click += btnMagenta_Click;
             // 
-            // btnYellow
+            // btnGold
             // 
-            btnYellow.BackColor = Color.Yellow;
-            btnYellow.FlatStyle = FlatStyle.Flat;
-            btnYellow.ForeColor = Color.FromArgb(19, 63, 140);
-            btnYellow.Location = new Point(533, 610);
-            btnYellow.Name = "btnYellow";
-            btnYellow.Size = new Size(35, 28);
-            btnYellow.TabIndex = 14;
-            btnYellow.UseVisualStyleBackColor = false;
+            btnGold.BackColor = Color.Gold;
+            btnGold.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
+            btnGold.FlatAppearance.BorderSize = 0;
+            btnGold.FlatStyle = FlatStyle.Flat;
+            btnGold.ForeColor = Color.Black;
+            btnGold.Location = new Point(533, 610);
+            btnGold.Name = "btnGold";
+            btnGold.Size = new Size(35, 28);
+            btnGold.TabIndex = 14;
+            btnGold.UseVisualStyleBackColor = false;
+            btnGold.Click += btnGold_Click;
             // 
             // tbxMessage
             // 
@@ -216,35 +236,51 @@ namespace SkribbleIO
             // btnPen
             // 
             btnPen.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnPen.Location = new Point(246, 610);
+            btnPen.Location = new Point(243, 610);
             btnPen.Name = "btnPen";
-            btnPen.Size = new Size(57, 53);
+            btnPen.Size = new Size(54, 53);
             btnPen.TabIndex = 16;
             btnPen.Text = "🖍";
             btnPen.UseVisualStyleBackColor = true;
             btnPen.Click += btnPen_Click;
             // 
-            // btnEraser
-            // 
-            btnEraser.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEraser.Location = new Point(306, 610);
-            btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(57, 53);
-            btnEraser.TabIndex = 17;
-            btnEraser.Text = "\U0001f9fd";
-            btnEraser.UseVisualStyleBackColor = true;
-            btnEraser.Click += btnEraser_Click;
-            // 
             // btnCyan
             // 
             btnCyan.BackColor = Color.Cyan;
+            btnCyan.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
+            btnCyan.FlatAppearance.BorderSize = 0;
             btnCyan.FlatStyle = FlatStyle.Flat;
-            btnCyan.ForeColor = Color.FromArgb(19, 63, 140);
+            btnCyan.ForeColor = Color.Black;
             btnCyan.Location = new Point(615, 610);
             btnCyan.Name = "btnCyan";
             btnCyan.Size = new Size(35, 28);
             btnCyan.TabIndex = 18;
             btnCyan.UseVisualStyleBackColor = false;
+            btnCyan.Click += btnCyan_Click;
+            // 
+            // pnlWidthIcon3
+            // 
+            pnlWidthIcon3.BackColor = Color.Black;
+            pnlWidthIcon3.Location = new Point(679, 643);
+            pnlWidthIcon3.Name = "pnlWidthIcon3";
+            pnlWidthIcon3.Size = new Size(30, 10);
+            pnlWidthIcon3.TabIndex = 19;
+            // 
+            // pnlWidthIcon2
+            // 
+            pnlWidthIcon2.BackColor = Color.Black;
+            pnlWidthIcon2.Location = new Point(679, 632);
+            pnlWidthIcon2.Name = "pnlWidthIcon2";
+            pnlWidthIcon2.Size = new Size(30, 5);
+            pnlWidthIcon2.TabIndex = 20;
+            // 
+            // pnlWidthIcon1
+            // 
+            pnlWidthIcon1.BackColor = Color.Black;
+            pnlWidthIcon1.Location = new Point(679, 624);
+            pnlWidthIcon1.Name = "pnlWidthIcon1";
+            pnlWidthIcon1.Size = new Size(30, 3);
+            pnlWidthIcon1.TabIndex = 21;
             // 
             // Form1
             // 
@@ -252,14 +288,16 @@ namespace SkribbleIO
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1304, 672);
+            Controls.Add(pnlWidthIcon1);
+            Controls.Add(pnlWidthIcon2);
+            Controls.Add(pnlWidthIcon3);
             Controls.Add(btnCyan);
-            Controls.Add(btnEraser);
             Controls.Add(btnPen);
             Controls.Add(trbWidth);
             Controls.Add(pbxCanvas);
             Controls.Add(tbxMessage);
-            Controls.Add(btnYellow);
-            Controls.Add(btnRose);
+            Controls.Add(btnGold);
+            Controls.Add(btnMagenta);
             Controls.Add(btnGreen);
             Controls.Add(btnBlue);
             Controls.Add(btnBlack);
@@ -294,11 +332,14 @@ namespace SkribbleIO
         private Button btnBlack;
         private Button btnBlue;
         private Button btnGreen;
-        private Button btnRose;
-        private Button btnYellow;
+        private Button btnMagenta;
+        private Button btnGold;
         private TextBox tbxMessage;
         private System.Windows.Forms.Timer tmrClock;
         private Button btnPen;
         private Button btnCyan;
+        private Panel pnlWidthIcon3;
+        private Panel pnlWidthIcon2;
+        private Panel pnlWidthIcon1;
     }
 }
