@@ -15,11 +15,16 @@ namespace SkribbleIO.HOST_CLIENT
         public FormHost()
         {
             InitializeComponent();
+            Host hoster = new Host();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-
+            hoster.OnMessageReceived += (msg) =>
+            {
+                Invoke(new Action(() => txtChat.AppendText(">>" + msg + "\n")));
+            };
+            hoster.Start(5000);
         }
     }
 }

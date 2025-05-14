@@ -33,6 +33,59 @@ namespace SkribbleIO
                 lock (clients) clients.Add(client);
                 _ = Task.Run(() => HandleClient(client));
             }
-        }   
+        }
+        private async Task HandleClient(TcpClient client)
+        {
+            var stream = client.GetStream();
+            byte[] buffer = new byte[1024];
+            while (isRunning)
+            {
+                try
+                {
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0) break;
+
+                    string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    OnMessageReceived?.Invoke(msg);
+                    Broadcast(msg, client);
+                }
+                catch
+                {
+                    break;
+                }
+            }
+            lock (clients) clients.Remove(client);
+            client.Close();
+        }
+        private void Broadcast(string message, TcpClient sender)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(message);
+            lock (clients)
+            {
+                foreach (var client in clients)
+                {
+                    if (client != sender)
+                    {
+                        try
+                        {
+                            client.GetStream().Write(buffer, 0, buffer.Length);
+                        }
+                        catch { }
+                    }
+                }
+            }
+        }
+
+        public void Stop()
+        {
+            isRunning = false;
+            listener.Stop();
+            lock (clients)
+            {
+                foreach (var client in clients) client.Close();
+            }
+            clients.Clear();
+        }
     }
 }
+
