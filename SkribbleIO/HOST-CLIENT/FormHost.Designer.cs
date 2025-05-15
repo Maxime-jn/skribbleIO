@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            tbxCustomWords = new TextBox();
+            txtChat = new TextBox();
             lb_drawTime = new ListBox();
             imageList1 = new ImageList(components);
             lb_rounds = new ListBox();
@@ -39,15 +39,17 @@
             label3 = new Label();
             label4 = new Label();
             btnStart = new Button();
+            lbl_Connected = new Label();
+            lb_f = new ListBox();
             SuspendLayout();
             // 
-            // tbxCustomWords
+            // txtChat
             // 
-            tbxCustomWords.Location = new Point(12, 186);
-            tbxCustomWords.Multiline = true;
-            tbxCustomWords.Name = "tbxCustomWords";
-            tbxCustomWords.Size = new Size(499, 191);
-            tbxCustomWords.TabIndex = 0;
+            txtChat.Location = new Point(12, 186);
+            txtChat.Multiline = true;
+            txtChat.Name = "txtChat";
+            txtChat.Size = new Size(499, 77);
+            txtChat.TabIndex = 0;
             // 
             // lb_drawTime
             // 
@@ -128,11 +130,31 @@
             btnStart.UseVisualStyleBackColor = true;
             btnStart.Click += btnStart_Click;
             // 
+            // lbl_Connected
+            // 
+            lbl_Connected.AutoSize = true;
+            lbl_Connected.Location = new Point(14, 277);
+            lbl_Connected.Name = "lbl_Connected";
+            lbl_Connected.Size = new Size(101, 15);
+            lbl_Connected.TabIndex = 10;
+            lbl_Connected.Text = "Mots Personalisés";
+            // 
+            // lb_f
+            // 
+            lb_f.FormattingEnabled = true;
+            lb_f.ItemHeight = 15;
+            lb_f.Location = new Point(17, 298);
+            lb_f.Name = "lb_f";
+            lb_f.Size = new Size(494, 79);
+            lb_f.TabIndex = 11;
+            // 
             // FormHost
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(523, 423);
+            Controls.Add(lb_f);
+            Controls.Add(lbl_Connected);
             Controls.Add(btnStart);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -141,7 +163,7 @@
             Controls.Add(nb_mots);
             Controls.Add(lb_rounds);
             Controls.Add(lb_drawTime);
-            Controls.Add(tbxCustomWords);
+            Controls.Add(txtChat);
             Name = "FormHost";
             Text = "FormHost";
             ResumeLayout(false);
@@ -150,7 +172,7 @@
 
         #endregion
 
-        private TextBox tbxCustomWords;
+        private TextBox txtChat;
         private ListBox lb_drawTime;
         private ImageList imageList1;
         private ListBox lb_rounds;
@@ -160,5 +182,7 @@
         private Label label3;
         private Label label4;
         private Button btnStart;
+        private Label lbl_Connected;
+        private ListBox lb_f;
     }
 }

@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace SkribbleIO.HOST_CLIENT
 {
-    public partial class FormHost : Form
+    public partial class FormHost : Form1
     {
+        Host hoster;
         public FormHost()
         {
             InitializeComponent();
-            Host hoster = new Host();
+            hoster = new Host();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -24,7 +25,7 @@ namespace SkribbleIO.HOST_CLIENT
             {
                 Invoke(new Action(() => txtChat.AppendText(">>" + msg + "\n")));
             };
-            hoster.Start(5000);
+            hoster.Start(5050);
         }
     }
 }
