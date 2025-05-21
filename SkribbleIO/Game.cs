@@ -334,7 +334,7 @@ namespace SkribbleIO
         private Dictionary<char, bool> showLetters(Dictionary<char, bool> lettersIsShow, char[] letters)
         {
             Random random = new Random();
-            int lettersToReveal = Math.Max(1, letters.Length / 5); 
+            int lettersToReveal = Math.Max(1, letters.Length / 5);
 
             for (int i = 0; i < lettersToReveal; i++)
             {
@@ -436,7 +436,7 @@ namespace SkribbleIO
             // Afficher le nom du dessinateur dans une boîte de message
             MessageBox.Show($"Le dessinateur est : {drawer}", "Dessinateur Choisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            
+
         }
 
         private void btnBlack_Click(object sender, EventArgs e)
