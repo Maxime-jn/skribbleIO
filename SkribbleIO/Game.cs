@@ -4,9 +4,9 @@ using System;
 
 namespace SkribbleIO
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
-        public Form1()
+        public Game()
         {
             InitializeComponent();
         }
@@ -45,7 +45,7 @@ namespace SkribbleIO
         {
             "Joueur1","Joueur2","Joueur3","Joueur4"
         };
-
+        private string playerName;
         private int time = 0;
         const int maxTime = 80;
         const int firstHintTime = 30;
@@ -54,22 +54,7 @@ namespace SkribbleIO
         private Dictionary<char, bool> lettersIsShow = new Dictionary<char, bool>();
         Random random = new Random();
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            int index = random.Next(words.Count);
-
-            lettersIsShow = loadSecretWord(words[index]);
-
-
-            loadSecretWord(words[index]);
-            string secretWord = words[index];
-
-            lblClock.Text = maxTime.ToString() + "s";
-
-            tmrClock.Start();
-            chooseDrawer();
-            colorBtnSelected = btnBlack;
-        }
+        private string secretWord;
 
         private bool isDrawing = false;
         private bool canDraw = false;
@@ -78,6 +63,27 @@ namespace SkribbleIO
         private int selectedWidth = 5;
         private string? selectedTool = null;
         private Button? colorBtnSelected = null;
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            int index = random.Next(words.Count);
+
+            lettersIsShow = loadSecretWord(words[index]);
+            playerName = "Joueur1";
+
+            loadSecretWord(words[index]);
+            secretWord = words[index];
+            MessageBox.Show("Le mot à deviner est : " + secretWord);
+
+            lblClock.Text = maxTime.ToString() + "s";
+
+            tmrClock.Start();
+            chooseDrawer();
+            colorBtnSelected = btnBlack;
+        }
+
+
         private void ChangeColor(string color)
         {
             if (colorBtnSelected != null)
@@ -241,7 +247,6 @@ namespace SkribbleIO
                 {
                     canDraw = true;
                     btnPen.BackColor = Color.DodgerBlue;
-                    ChangeColor("black");
                 }
             }
             else
@@ -360,6 +365,40 @@ namespace SkribbleIO
         }
 
 
+        private void ManageGuess()
+        {
+            if (tbxMessage.Text.Trim() == "")
+            {
+                return;
+            }
+            string message = tbxMessage.Text;
+            if (message == secretWord)
+            {
+                MessageBox.Show("Bonne reponse");
+                lblSecretWord.Text = secretWord;
+                // send that secret word is found to other players
+            }
+            else
+            {
+                // send message to other players bc the player did not found the secret word
+                lbxChat.Items.Add(playerName + " (vous): " + message);
+
+            }
+        }
+
+
+        private void tbxMessage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                ManageGuess();
+            }
+        }
+
+        private void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            ManageGuess();
+        }
 
 
         private void tmrClock_Tick(object sender, EventArgs e)
@@ -384,8 +423,6 @@ namespace SkribbleIO
             }
         }
 
-
-
         private void chooseDrawer()
         {
             Random random = new Random();
@@ -393,6 +430,8 @@ namespace SkribbleIO
             string drawer = players[index];
             // Afficher le nom du dessinateur dans une boîte de message
             MessageBox.Show($"Le dessinateur est : {drawer}", "Dessinateur Choisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            
         }
 
         private void btnBlack_Click(object sender, EventArgs e)
