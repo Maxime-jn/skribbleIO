@@ -4,9 +4,9 @@ using System;
 
 namespace SkribbleIO
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
-        public Form1()
+        public Game()
         {
             InitializeComponent();
         }
@@ -329,16 +329,21 @@ namespace SkribbleIO
         private Dictionary<char, bool> showLetters(Dictionary<char, bool> lettersIsShow, char[] letters)
         {
             Random random = new Random();
-            int index;
+            int lettersToReveal = Math.Max(1, letters.Length / 5); 
 
-            // Ensure we find a letter that hasn't been revealed yet  
-            do
+            for (int i = 0; i < lettersToReveal; i++)
             {
-                index = random.Next(letters.Length);
-            } while (lettersIsShow[letters[index]]);
+                int index;
 
-            // Reveal the selected letter  
-            lettersIsShow[letters[index]] = true;
+                // Ensure we find a letter that hasn't been revealed yet  
+                do
+                {
+                    index = random.Next(letters.Length);
+                } while (lettersIsShow[letters[index]]);
+
+                // Reveal the selected letter  
+                lettersIsShow[letters[index]] = true;
+            }
 
             // Clear the label text before updating it  
             lblSecretWord.Text = "";

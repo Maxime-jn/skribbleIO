@@ -2,7 +2,7 @@
 
 namespace SkribbleIO
 {
-    partial class Form1
+    partial class Game
     {
         /// <summary>
         ///  Required designer variable.
@@ -31,7 +31,7 @@ namespace SkribbleIO
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Game));
             pbxCanvas = new PictureBox();
             trbWidth = new TrackBar();
             btnSendMessage = new Button();
@@ -281,7 +281,7 @@ namespace SkribbleIO
             pnlWidthIcon1.Size = new Size(30, 3);
             pnlWidthIcon1.TabIndex = 21;
             // 
-            // Form1
+            // Game
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -307,8 +307,9 @@ namespace SkribbleIO
             Controls.Add(lbxPlayer);
             Controls.Add(lbxChat);
             Controls.Add(btnSendMessage);
-            Name = "Form1";
-            Text = "C# Skribbl.io";
+            Name = "Game";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Game";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).EndInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).EndInit();

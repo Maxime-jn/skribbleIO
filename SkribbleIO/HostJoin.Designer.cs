@@ -28,12 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "HostJoin";
+            btnCreate = new Button();
+            btnJoin = new Button();
+            lblIpHost = new Label();
+            tbxIpHost = new TextBox();
+            SuspendLayout();
+            // 
+            // btnCreate
+            // 
+            btnCreate.Location = new Point(306, 63);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(150, 109);
+            btnCreate.TabIndex = 0;
+            btnCreate.Text = "Crée la partie";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
+            // 
+            // btnJoin
+            // 
+            btnJoin.Location = new Point(306, 204);
+            btnJoin.Name = "btnJoin";
+            btnJoin.Size = new Size(150, 109);
+            btnJoin.TabIndex = 1;
+            btnJoin.Text = "Rejoindre une partie";
+            btnJoin.UseVisualStyleBackColor = true;
+            // 
+            // lblIpHost
+            // 
+            lblIpHost.AutoSize = true;
+            lblIpHost.Location = new Point(324, 325);
+            lblIpHost.Name = "lblIpHost";
+            lblIpHost.Size = new Size(110, 15);
+            lblIpHost.TabIndex = 2;
+            lblIpHost.Text = "Mettez l'ip de l'host";
+            // 
+            // tbxIpHost
+            // 
+            tbxIpHost.Location = new Point(310, 343);
+            tbxIpHost.Name = "tbxIpHost";
+            tbxIpHost.Size = new Size(146, 23);
+            tbxIpHost.TabIndex = 3;
+            // 
+            // HostJoin
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(tbxIpHost);
+            Controls.Add(lblIpHost);
+            Controls.Add(btnJoin);
+            Controls.Add(btnCreate);
+            Name = "HostJoin";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "HostJoin";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button btnCreate;
+        private Button btnJoin;
+        private Label lblIpHost;
+        private TextBox tbxIpHost;
     }
 }
