@@ -7,7 +7,7 @@ using System.Text;
  */
 namespace SkribbleIO
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
         private int port = 5050;
         private TcpClient client;
@@ -15,7 +15,7 @@ namespace SkribbleIO
         private Thread receiveThread;
         private Bitmap bitmap;
 
-        public Form1()
+        public Game()
         {
             InitializeComponent();
             StartReceivingFromHost("10.5.43.40", port);
