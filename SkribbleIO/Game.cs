@@ -7,7 +7,7 @@ using System.Text;
  */
 namespace SkribbleIO
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
         private int port = 5050;
         private TcpClient client;
@@ -15,10 +15,11 @@ namespace SkribbleIO
         private Thread receiveThread;
         private Bitmap bitmap;
 
-        public Form1()
+        public Game()
         {
             InitializeComponent();
-            StartReceivingFromHost("10.5.33.36", port);
+            StartReceivingFromHost("10.5.43.40", port);
+            SendGuess("Slt", "10.5.43.40", port);
         }
 
         private void StartReceivingFromHost(string hostIp, int port)
@@ -26,7 +27,7 @@ namespace SkribbleIO
             client = new TcpClient(hostIp, port);
             stream = client.GetStream();
 
-            Thread receiveThread = new Thread(() =>
+            Thread  receiveThread = new Thread(() =>
             {
                 while (true)
                 {
@@ -34,7 +35,7 @@ namespace SkribbleIO
                     {
                         using (MemoryStream ms = new MemoryStream())
                         {
-                            byte[] buffer = new byte[4096];
+                            byte[] buffer = new byte[1024];
                             int bytesRead;
 
                             // Lit tant que des données arrivent
@@ -45,16 +46,16 @@ namespace SkribbleIO
                                 if (bytesRead < buffer.Length)
                                     break;
                             }
-                            
-                            if (ms.Length > 0)
-                            {
-                                Bitmap image = new Bitmap(ms);
-                                Invoke((MethodInvoker)(() =>
-                                {
+
+                            //if (ms.Length > 0)
+                            //{
+                            //    Bitmap image = new Bitmap(ms);
+                            //    Invoke((MethodInvoker)(() =>
+                            //    {
                                     label1.Text = "Connecter";
-                                    //pictureBox1.Image = image; // affiche le dessin reçu
-                                }));
-                            }
+                            //        pictureBox1.Image = image; // affiche le dessin reçu
+                            //    }));
+                            //}
                         }
                     }
                     catch (Exception ex)
@@ -106,11 +107,6 @@ namespace SkribbleIO
         {
             ImageConverter converter = new ImageConverter();
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
-        }
-
-        private void btnSendGuess_Click(object sender, EventArgs e)
-        {
-            SendGuess("Hello World" ,"192.168.1.10", 6000); // Port différent si besoin // Ok
         }
     }
 }

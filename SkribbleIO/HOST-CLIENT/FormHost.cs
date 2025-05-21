@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace SkribbleIO.HOST_CLIENT
 {
-    public partial class FormHost : Form1
+    public partial class FormHost : Game
     {
         Host hoster;
         public FormHost()
