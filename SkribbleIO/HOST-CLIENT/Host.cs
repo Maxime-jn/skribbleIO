@@ -6,11 +6,16 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SkribbleIO
 {
     public class Host
     {
+        public event Action<string> OnClientConnected;
+        public event Action<string> OnClientDisconnected;
+
         private TcpListener listener;
         private List<TcpClient> clients = new List<TcpClient>();
         private bool isRunning = false;
@@ -34,8 +39,14 @@ namespace SkribbleIO
 
                 _ = Task.Run(() => HandleClient(client));
                 Console.WriteLine("Client connecté");
+
+                var endpoint = client.Client.RemoteEndPoint.ToString();
+                OnClientConnected?.Invoke(endpoint);
             }
         }
+
+        
+
         private async Task HandleClient(TcpClient client)
         {
             var stream = client.GetStream();
@@ -57,6 +68,8 @@ namespace SkribbleIO
                 }
             }
             lock (clients) clients.Remove(client);
+            var endpoint = client.Client.RemoteEndPoint.ToString();
+            OnClientDisconnected?.Invoke(endpoint);
             client.Close();
         }
         private void Broadcast(string message, TcpClient sender)

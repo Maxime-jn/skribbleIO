@@ -38,11 +38,11 @@ namespace SkribbleIO
                             byte[] buffer = new byte[1024];
                             int bytesRead;
 
-                            // Lit tant que des données arrivent
+                            // Lit tant que des donnï¿½es arrivent
                             while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
                             {
                                 ms.Write(buffer, 0, bytesRead);
-                                // Ajoute une pause ou logique pour détecter fin d'image
+                                // Ajoute une pause ou logique pour dï¿½tecter fin d'image
                                 if (bytesRead < buffer.Length)
                                     break;
                             }
@@ -53,14 +53,14 @@ namespace SkribbleIO
                             //    Invoke((MethodInvoker)(() =>
                             //    {
                                     label1.Text = "Connecter";
-                            //        pictureBox1.Image = image; // affiche le dessin reçu
+                            //        pictureBox1.Image = image; // affiche le dessin reï¿½u
                             //    }));
                             //}
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Erreur réception : " + ex.Message);
+                        Console.WriteLine("Erreur rï¿½ception : " + ex.Message);
                         break;
                     }
                 }
