@@ -18,7 +18,7 @@ namespace SkribbleIO
         public Form1()
         {
             InitializeComponent();
-            StartReceivingFromHost("10.5.33.36", port);
+            StartReceivingFromHost("10.5.43.40", port);
         }
 
         private void StartReceivingFromHost(string hostIp, int port)
