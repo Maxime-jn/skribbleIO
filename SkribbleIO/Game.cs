@@ -377,6 +377,7 @@ namespace SkribbleIO
                 return;
             }
             string message = tbxMessage.Text;
+            tbxMessage.Text = "";
             if (message == secretWord)
             {
                 MessageBox.Show("Bonne reponse");
