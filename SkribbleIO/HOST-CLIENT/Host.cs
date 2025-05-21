@@ -31,16 +31,10 @@ namespace SkribbleIO
             {
                 var client = await listener.AcceptTcpClientAsync();
                 lock (clients) clients.Add(client);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
                 _ = Task.Run(() => HandleClient(client));
                 Console.WriteLine("Client connecté");
-=======
-                //_ = Task.Run(() => HandleClient(client));
->>>>>>> Stashed changes
-=======
-                //_ = Task.Run(() => HandleClient(client));
->>>>>>> Stashed changes
+
             }
         }
         private async Task HandleClient(TcpClient client)
