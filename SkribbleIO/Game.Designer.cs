@@ -314,7 +314,8 @@ namespace SkribbleIO
             Controls.Add(lbxChat);
             Controls.Add(btnSendMessage);
             Name = "Game";
-            Text = "C# Skribbl.io";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Game";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).EndInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).EndInit();

@@ -11,18 +11,22 @@ using SkribbleIO;
 
 namespace SkribbleIO
 {
-    public partial class HostJoin : Form
+    public partial class Lobby : Form
     {
-
-        public HostJoin()
+        public Lobby()
         {
             InitializeComponent();
         }
 
-        private void btnCreate_Click(object sender, EventArgs e)
+        private void lobby_Load(object sender, EventArgs e)
         {
-            Lobby lobbyForm = new Lobby();
-            lobbyForm.Show();
+
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            Game game = new Game();
+            game.Show();
             this.Hide();
         }
     }
