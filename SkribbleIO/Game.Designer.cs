@@ -61,7 +61,7 @@ namespace SkribbleIO
             // 
             pbxCanvas.BackColor = Color.White;
             pbxCanvas.Image = (Image)resources.GetObject("pbxCanvas.Image");
-            pbxCanvas.Location = new Point(205, 59);
+            pbxCanvas.Location = new Point(192, 59);
             pbxCanvas.Name = "pbxCanvas";
             pbxCanvas.Size = new Size(880, 545);
             pbxCanvas.TabIndex = 0;
@@ -74,7 +74,7 @@ namespace SkribbleIO
             // 
             trbWidth.Cursor = Cursors.NoMoveHoriz;
             trbWidth.LargeChange = 10;
-            trbWidth.Location = new Point(708, 623);
+            trbWidth.Location = new Point(671, 623);
             trbWidth.Maximum = 150;
             trbWidth.Minimum = 5;
             trbWidth.Name = "trbWidth";
@@ -86,19 +86,22 @@ namespace SkribbleIO
             // 
             // btnSendMessage
             // 
-            btnSendMessage.Location = new Point(1091, 637);
+            btnSendMessage.Location = new Point(1078, 637);
             btnSendMessage.Name = "btnSendMessage";
-            btnSendMessage.Size = new Size(189, 26);
+            btnSendMessage.Size = new Size(214, 26);
             btnSendMessage.TabIndex = 0;
+            btnSendMessage.Text = "Tenter de deviner";
             btnSendMessage.UseVisualStyleBackColor = true;
+            btnSendMessage.Click += btnSendMessage_Click;
+            
             // 
             // lbxChat
             // 
             lbxChat.FormattingEnabled = true;
             lbxChat.ItemHeight = 15;
-            lbxChat.Location = new Point(1091, 59);
+            lbxChat.Location = new Point(1078, 59);
             lbxChat.Name = "lbxChat";
-            lbxChat.Size = new Size(189, 544);
+            lbxChat.Size = new Size(218, 544);
             lbxChat.TabIndex = 1;
             // 
             // lbxPlayer
@@ -107,7 +110,7 @@ namespace SkribbleIO
             lbxPlayer.ItemHeight = 15;
             lbxPlayer.Location = new Point(12, 59);
             lbxPlayer.Name = "lbxPlayer";
-            lbxPlayer.Size = new Size(189, 544);
+            lbxPlayer.Size = new Size(175, 544);
             lbxPlayer.TabIndex = 2;
             // 
             // lblSecretWord
@@ -117,6 +120,7 @@ namespace SkribbleIO
             lblSecretWord.Name = "lblSecretWord";
             lblSecretWord.Size = new Size(532, 44);
             lblSecretWord.TabIndex = 3;
+            lblSecretWord.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblClock
             // 
@@ -130,7 +134,7 @@ namespace SkribbleIO
             // 
             btnEraser.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEraser.ForeColor = Color.Black;
-            btnEraser.Location = new Point(301, 610);
+            btnEraser.Location = new Point(251, 610);
             btnEraser.Name = "btnEraser";
             btnEraser.Size = new Size(54, 53);
             btnEraser.TabIndex = 17;
@@ -144,7 +148,7 @@ namespace SkribbleIO
             btnRed.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
             btnRed.FlatAppearance.BorderSize = 0;
             btnRed.FlatStyle = FlatStyle.Flat;
-            btnRed.Location = new Point(410, 610);
+            btnRed.Location = new Point(360, 610);
             btnRed.Name = "btnRed";
             btnRed.Size = new Size(35, 28);
             btnRed.TabIndex = 8;
@@ -157,7 +161,7 @@ namespace SkribbleIO
             btnBlack.FlatAppearance.BorderColor = Color.FromArgb(74, 152, 211);
             btnBlack.FlatAppearance.BorderSize = 3;
             btnBlack.FlatStyle = FlatStyle.Flat;
-            btnBlack.Location = new Point(369, 610);
+            btnBlack.Location = new Point(319, 610);
             btnBlack.Name = "btnBlack";
             btnBlack.Size = new Size(35, 28);
             btnBlack.TabIndex = 9;
@@ -171,7 +175,7 @@ namespace SkribbleIO
             btnBlue.FlatAppearance.BorderSize = 0;
             btnBlue.FlatStyle = FlatStyle.Flat;
             btnBlue.ForeColor = Color.Black;
-            btnBlue.Location = new Point(451, 610);
+            btnBlue.Location = new Point(401, 610);
             btnBlue.Name = "btnBlue";
             btnBlue.Size = new Size(35, 28);
             btnBlue.TabIndex = 10;
@@ -185,7 +189,7 @@ namespace SkribbleIO
             btnGreen.FlatAppearance.BorderSize = 0;
             btnGreen.FlatStyle = FlatStyle.Flat;
             btnGreen.ForeColor = Color.Black;
-            btnGreen.Location = new Point(492, 610);
+            btnGreen.Location = new Point(442, 610);
             btnGreen.Name = "btnGreen";
             btnGreen.Size = new Size(35, 28);
             btnGreen.TabIndex = 11;
@@ -199,7 +203,7 @@ namespace SkribbleIO
             btnMagenta.FlatAppearance.BorderSize = 0;
             btnMagenta.FlatStyle = FlatStyle.Flat;
             btnMagenta.ForeColor = Color.Black;
-            btnMagenta.Location = new Point(574, 610);
+            btnMagenta.Location = new Point(524, 610);
             btnMagenta.Name = "btnMagenta";
             btnMagenta.Size = new Size(35, 28);
             btnMagenta.TabIndex = 13;
@@ -213,7 +217,7 @@ namespace SkribbleIO
             btnGold.FlatAppearance.BorderSize = 0;
             btnGold.FlatStyle = FlatStyle.Flat;
             btnGold.ForeColor = Color.Black;
-            btnGold.Location = new Point(533, 610);
+            btnGold.Location = new Point(483, 610);
             btnGold.Name = "btnGold";
             btnGold.Size = new Size(35, 28);
             btnGold.TabIndex = 14;
@@ -222,10 +226,12 @@ namespace SkribbleIO
             // 
             // tbxMessage
             // 
-            tbxMessage.Location = new Point(1091, 607);
+            tbxMessage.Location = new Point(1078, 609);
             tbxMessage.Name = "tbxMessage";
-            tbxMessage.Size = new Size(189, 23);
+            tbxMessage.PlaceholderText = " Écrivez ici votre supposition";
+            tbxMessage.Size = new Size(214, 23);
             tbxMessage.TabIndex = 15;
+            tbxMessage.KeyPress += tbxMessage_KeyPress;
             // 
             // tmrClock
             // 
@@ -235,7 +241,7 @@ namespace SkribbleIO
             // btnPen
             // 
             btnPen.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnPen.Location = new Point(243, 610);
+            btnPen.Location = new Point(193, 610);
             btnPen.Name = "btnPen";
             btnPen.Size = new Size(54, 53);
             btnPen.TabIndex = 16;
@@ -250,7 +256,7 @@ namespace SkribbleIO
             btnCyan.FlatAppearance.BorderSize = 0;
             btnCyan.FlatStyle = FlatStyle.Flat;
             btnCyan.ForeColor = Color.Black;
-            btnCyan.Location = new Point(615, 610);
+            btnCyan.Location = new Point(565, 610);
             btnCyan.Name = "btnCyan";
             btnCyan.Size = new Size(35, 28);
             btnCyan.TabIndex = 18;
@@ -260,7 +266,7 @@ namespace SkribbleIO
             // pnlWidthIcon3
             // 
             pnlWidthIcon3.BackColor = Color.Black;
-            pnlWidthIcon3.Location = new Point(679, 643);
+            pnlWidthIcon3.Location = new Point(642, 643);
             pnlWidthIcon3.Name = "pnlWidthIcon3";
             pnlWidthIcon3.Size = new Size(30, 10);
             pnlWidthIcon3.TabIndex = 19;
@@ -268,7 +274,7 @@ namespace SkribbleIO
             // pnlWidthIcon2
             // 
             pnlWidthIcon2.BackColor = Color.Black;
-            pnlWidthIcon2.Location = new Point(679, 632);
+            pnlWidthIcon2.Location = new Point(642, 632);
             pnlWidthIcon2.Name = "pnlWidthIcon2";
             pnlWidthIcon2.Size = new Size(30, 5);
             pnlWidthIcon2.TabIndex = 20;
@@ -276,7 +282,7 @@ namespace SkribbleIO
             // pnlWidthIcon1
             // 
             pnlWidthIcon1.BackColor = Color.Black;
-            pnlWidthIcon1.Location = new Point(679, 624);
+            pnlWidthIcon1.Location = new Point(642, 624);
             pnlWidthIcon1.Name = "pnlWidthIcon1";
             pnlWidthIcon1.Size = new Size(30, 3);
             pnlWidthIcon1.TabIndex = 21;
