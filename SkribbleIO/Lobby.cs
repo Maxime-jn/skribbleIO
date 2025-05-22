@@ -13,11 +13,36 @@ namespace SkribbleIO
 {
     public partial class Lobby : Form
     {
+        Host hoster;
         public Lobby()
         {
             InitializeComponent();
+            hoster = new Host();
+            hoster.OnClientConnected += Host_OnClientConnected;
+            hoster.OnClientDisconnected += Host_OnClientDisconnected;
         }
-
+        private void Host_OnClientConnected(string clientInfo)
+        {
+            if (clbxPlayers.InvokeRequired)
+            {
+                clbxPlayers.Invoke(new Action(() => clbxPlayers.Items.Add(clientInfo)));
+            }
+            else
+            {
+                clbxPlayers.Items.Add(clientInfo);
+            }
+        }
+        private void Host_OnClientDisconnected(string clientInfo)
+        {
+            if (clbxPlayers.InvokeRequired)
+            {
+                clbxPlayers.Invoke(new Action(() => clbxPlayers.Items.Remove(clientInfo)));
+            }
+            else
+            {
+                clbxPlayers.Items.Remove(clientInfo);
+            }
+        }
         private void lobby_Load(object sender, EventArgs e)
         {
 
