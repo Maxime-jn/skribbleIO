@@ -83,7 +83,6 @@
             Name = "Lobby";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "lobby";
-            Load += lobby_Load;
             ResumeLayout(false);
             PerformLayout();
         }

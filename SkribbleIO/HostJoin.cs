@@ -20,6 +20,7 @@ namespace SkribbleIO
 
             Lobby lobbyForm = new Lobby(hoster); // Pass host instance to Lobby
             lobbyForm.Show();
+            hoster.Start();
             this.Hide();
         }
     }
