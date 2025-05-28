@@ -18,8 +18,9 @@ namespace SkribbleIO
         {
             await Task.Run(() => hoster.Start()); // Start host using config
 
-            Lobby lobbyForm = new Lobby(hoster); // Pass host instance to Lobby
+            Lobby lobbyForm = new Lobby(); // Pass host instance to Lobby
             lobbyForm.Show();
+            lobbyForm.GetHost(hoster);
             hoster.Start();
             this.Hide();
         }
@@ -32,10 +33,9 @@ namespace SkribbleIO
 
                 MessageBox.Show("Connecté au serveur !");
 
-                // Optionally: open a new form for the game or lobby
-                Game game = new Game(); // or LobbyJoin if you have a separate form
-                game.Show();
-                this.Hide();
+                Lobby lobbyForm = new Lobby(); // Pass host instance to Lobby
+                lobbyForm.Show();
+                lobbyForm.GetClient(client);
             }
             catch (Exception ex)
             {

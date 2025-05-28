@@ -8,16 +8,24 @@ namespace SkribbleIO
     public partial class Lobby : Form
     {
         private Host hoster;
+        private Client client;
 
-        public Lobby(Host hoster)
+        public Lobby()
         {
             InitializeComponent();
-            this.hoster = hoster;
+        }
 
+        public void GetHost(Host hoster)
+        {
+            this.hoster = hoster;
+            // Subscribe to events
             hoster.OnClientConnected += Host_OnClientConnected;
             hoster.OnClientDisconnected += Host_OnClientDisconnected;
         }
-
+        public void GetClient(Client client)
+        {
+            this.client = client;
+        }
         private void Lobby_Load(object sender, EventArgs e)
         {
 
