@@ -31,6 +31,7 @@
             btnStart = new Button();
             clbxPlayers = new CheckedListBox();
             lblLobby = new Label();
+            lbl_ip = new Label();
             SuspendLayout();
             // 
             // btnStart
@@ -61,18 +62,27 @@
             lblLobby.TabIndex = 2;
             lblLobby.Text = "LOBBY";
             // 
+            // lbl_ip
+            // 
+            lbl_ip.AutoSize = true;
+            lbl_ip.Location = new Point(565, 31);
+            lbl_ip.Name = "lbl_ip";
+            lbl_ip.Size = new Size(38, 15);
+            lbl_ip.TabIndex = 3;
+            lbl_ip.Text = "label1";
+            // 
             // Lobby
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lbl_ip);
             Controls.Add(lblLobby);
             Controls.Add(clbxPlayers);
             Controls.Add(btnStart);
             Name = "Lobby";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "lobby";
-            Load += lobby_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -82,5 +92,6 @@
         private Button btnStart;
         private CheckedListBox clbxPlayers;
         private Label lblLobby;
+        private Label lbl_ip;
     }
 }

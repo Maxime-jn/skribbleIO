@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SkribbleIO;
 
@@ -13,14 +7,22 @@ namespace SkribbleIO
 {
     public partial class Lobby : Form
     {
-        Host hoster;
-        public Lobby()
+        private Host hoster;
+
+        public Lobby(Host hoster)
         {
             InitializeComponent();
-            hoster = new Host();
+            this.hoster = hoster;
+
             hoster.OnClientConnected += Host_OnClientConnected;
             hoster.OnClientDisconnected += Host_OnClientDisconnected;
         }
+
+        private void Lobby_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void Host_OnClientConnected(string clientInfo)
         {
             if (clbxPlayers.InvokeRequired)
@@ -32,6 +34,7 @@ namespace SkribbleIO
                 clbxPlayers.Items.Add(clientInfo);
             }
         }
+
         private void Host_OnClientDisconnected(string clientInfo)
         {
             if (clbxPlayers.InvokeRequired)
@@ -43,13 +46,17 @@ namespace SkribbleIO
                 clbxPlayers.Items.Remove(clientInfo);
             }
         }
-        private void lobby_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            // Start hosting on form load
+            hoster.Start(); // no port needed if using SkribbleSocket's config
+
+            // Display IP from config (if any)
+            var ip = hoster?.skribbleSocket?.GetEndPoint()?.Address.ToString();
+            if (!string.IsNullOrWhiteSpace(ip))
+                lbl_ip.Text = $"Server IP: {ip}";
+
             Game game = new Game();
             game.Show();
             this.Hide();
