@@ -52,6 +52,7 @@
             btnJoin.TabIndex = 1;
             btnJoin.Text = "Rejoindre une partie";
             btnJoin.UseVisualStyleBackColor = true;
+            btnJoin.Click += btnJoin_Click;
             // 
             // lblIpHost
             // 
