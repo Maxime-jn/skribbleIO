@@ -93,82 +93,110 @@ namespace SkribbleIO
             switch (color)
             {
                 case "black":
-                    if (colorBtnSelected == btnBlack) { btnBlack.FlatAppearance.BorderSize = 3; return; }
-                    selectedColor = Color.Black;
-                    btnBlack.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnBlack;
+                    if (selectedTool == "pen")
+                    {
+                        if (colorBtnSelected == btnBlack) { btnBlack.FlatAppearance.BorderSize = 3; return; }
+                        selectedColor = Color.Black;
+                        btnBlack.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnBlack;
+                        return;
+                    }
                     break;
                 case "red":
-                    if (colorBtnSelected == btnRed)
+                    if (selectedTool == "pen")
                     {
-                        colorBtnSelected.FlatAppearance.BorderSize = 0;
-                        colorBtnSelected = null;
-                        ChangeColor("black");
+                        if (colorBtnSelected == btnRed)
+                        {
+                            colorBtnSelected.FlatAppearance.BorderSize = 0;
+                            colorBtnSelected = null;
+                            ChangeColor("black");
+                            return;
+                        }
+                        selectedColor = Color.Red;
+                        btnRed.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnRed;
                         return;
                     }
-                    selectedColor = Color.Red;
-                    btnRed.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnRed;
                     break;
                 case "green":
-                    if (colorBtnSelected == btnGreen)
+                    if (selectedTool == "pen")
                     {
-                        colorBtnSelected.FlatAppearance.BorderSize = 0;
-                        colorBtnSelected = null;
-                        ChangeColor("black");
+                        if (colorBtnSelected == btnGreen)
+                        {
+                            colorBtnSelected.FlatAppearance.BorderSize = 0;
+                            colorBtnSelected = null;
+                            ChangeColor("black");
+                            return;
+                        }
+                        selectedColor = Color.Green;
+                        btnGreen.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnGreen;
                         return;
                     }
-                    selectedColor = Color.Green;
-                    btnGreen.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnGreen;
                     break;
                 case "blue":
-                    if (colorBtnSelected == btnBlue)
+                    if (selectedTool == "pen")
                     {
-                        colorBtnSelected.FlatAppearance.BorderSize = 0;
-                        colorBtnSelected = null;
-                        ChangeColor("black");
+                        if (colorBtnSelected == btnBlue)
+                        {
+                            colorBtnSelected.FlatAppearance.BorderSize = 0;
+                            colorBtnSelected = null;
+                            ChangeColor("black");
+                            return;
+                        }
+                        selectedColor = Color.Blue;
+                        btnBlue.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnBlue;
                         return;
                     }
-                    selectedColor = Color.Blue;
-                    btnBlue.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnBlue;
                     break;
                 case "gold":
-                    if (colorBtnSelected == btnGold)
+                    if (selectedTool == "pen")
                     {
-                        colorBtnSelected.FlatAppearance.BorderSize = 0;
-                        colorBtnSelected = null;
-                        ChangeColor("black");
+                        if (colorBtnSelected == btnGold)
+                        {
+                            colorBtnSelected.FlatAppearance.BorderSize = 0;
+                            colorBtnSelected = null;
+                            ChangeColor("black");
+                            return;
+                        }
+                        selectedColor = Color.Gold;
+                        btnGold.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnGold;
                         return;
                     }
-                    selectedColor = Color.Gold;
-                    btnGold.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnGold;
                     break;
                 case "magenta":
-                    if (colorBtnSelected == btnMagenta)
+                    if (selectedTool == "pen")
                     {
-                        colorBtnSelected.FlatAppearance.BorderSize = 0;
-                        colorBtnSelected = null;
-                        ChangeColor("black");
+                        if (colorBtnSelected == btnMagenta)
+                        {
+                            colorBtnSelected.FlatAppearance.BorderSize = 0;
+                            colorBtnSelected = null;
+                            ChangeColor("black");
+                            return;
+                        }
+                        selectedColor = Color.Magenta;
+                        btnMagenta.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnMagenta;
                         return;
                     }
-                    selectedColor = Color.Magenta;
-                    btnMagenta.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnMagenta;
                     break;
                 case "cyan":
-                    if (colorBtnSelected == btnCyan)
+                    if (selectedTool == "pen")
                     {
-                        colorBtnSelected.FlatAppearance.BorderSize = 0;
-                        colorBtnSelected = null;
-                        ChangeColor("black");
+                        if (colorBtnSelected == btnCyan)
+                        {
+                            colorBtnSelected.FlatAppearance.BorderSize = 0;
+                            colorBtnSelected = null;
+                            ChangeColor("black");
+                            return;
+                        }
+                        selectedColor = Color.Cyan;
+                        btnCyan.FlatAppearance.BorderSize = 3;
+                        colorBtnSelected = btnCyan;
                         return;
                     }
-                    selectedColor = Color.Cyan;
-                    btnCyan.FlatAppearance.BorderSize = 3;
-                    colorBtnSelected = btnCyan;
                     break;
                 case "white":
                     if (btnEraser.BackColor == Color.DodgerBlue)
@@ -178,6 +206,8 @@ namespace SkribbleIO
                         return;
                     }
                     selectedColor = Color.White;
+                    colorBtnSelected = null;
+
                     break;
             }
         }
@@ -232,6 +262,7 @@ namespace SkribbleIO
         {
             if (canDraw)
             {
+
                 if (btnEraser.BackColor == Color.DodgerBlue)
                 {
                     // selectionner avec déselection
@@ -245,8 +276,10 @@ namespace SkribbleIO
                 }
                 else
                 {
+                    selectedTool = "pen";
                     canDraw = true;
                     btnPen.BackColor = Color.DodgerBlue;
+                    ChangeColor("black");
                 }
             }
             else
@@ -254,6 +287,7 @@ namespace SkribbleIO
                 // selectionner sans rien deselectionner
                 canDraw = true;
                 btnPen.BackColor = Color.DodgerBlue;
+                selectedTool = "pen";
                 ChangeColor("black");
             }
         }
@@ -276,6 +310,7 @@ namespace SkribbleIO
                 }
                 else
                 {
+                    selectedTool = "eraser";
                     canDraw = true;
                     ChangeColor("white");
                     btnEraser.BackColor = Color.DodgerBlue;
@@ -287,6 +322,7 @@ namespace SkribbleIO
                 // selectionner sans rien deselectionner
                 canDraw = true;
                 ChangeColor("white");
+                
                 btnEraser.BackColor = Color.DodgerBlue;
 
             }
@@ -415,7 +451,7 @@ namespace SkribbleIO
                 MessageBox.Show("Le temps est écoulé !", "Fin du jeu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            time++;
+             time++;
             lblClock.Text = (maxTime - time).ToString() + "s";
 
 
@@ -423,9 +459,10 @@ namespace SkribbleIO
             {
                 if (lettersIsShow != null && words.Count > 0)
                 {
-                    string currentWord = new string(lettersIsShow.Keys.ToArray());
+                    string currentWord = secretWord;
+                        //new string(lettersIsShow.Keys.ToArray());
                     showLetters(lettersIsShow, currentWord.ToCharArray());
-                }
+                    }
             }
         }
 
