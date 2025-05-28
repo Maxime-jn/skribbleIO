@@ -11,7 +11,7 @@ namespace SkribbleIO
         {
             InitializeComponent();
         }
-        private string secretword;
+        private string secretWord;
         List<string> words = new List<string>
         {
             "chat", "chien", "maison", "école", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
@@ -62,7 +62,7 @@ namespace SkribbleIO
 
 
             loadSecretWord(words[index]);
-            string secretWord = words[index];
+            secretWord = words[index];
 
            
 
@@ -235,16 +235,23 @@ namespace SkribbleIO
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
             string message = tbxMessage.Text;
-            if (message == secretWord)
+            if(message != "") { 
+                if (message == secretWord)
+                {
+                    lbxChat.Items.Add("Joueur 1 à trouver le mot secret");
+                    lblSecretWord.Text = secretWord;
+                }
+                else
+                {
+                    lbxChat.Items.Add(message);
+                    tbxMessage.Text = "";
+                }
+            }
+            else
             {
-                MessageBox.Show("Bonne reponse");
-                lblSecretWord.Text = secretWord;
+                MessageBox.Show("Le champ doit ne doit pas être vide");
             }
-            else { 
-
-                lblSecretWord.Text = secretWord;
-            lbxChat.Items.Add(message);
-            }
+        }
         
 
         private void chooseDrawer()
