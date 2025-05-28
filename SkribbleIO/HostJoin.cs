@@ -24,7 +24,7 @@ namespace SkribbleIO
         {
             Lobby lobbyForm = new Lobby();
             lobbyForm.Show();
-            hoster.Start(5050);
+            hoster.Start();
             this.Hide();
         }
     }
