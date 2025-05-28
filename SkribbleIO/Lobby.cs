@@ -20,13 +20,7 @@ namespace SkribbleIO
 
         private void Lobby_Load(object sender, EventArgs e)
         {
-            // Start hosting on form load
-            hoster.Start(); // no port needed if using SkribbleSocket's config
 
-            // Display IP from config (if any)
-            var ip = hoster?.skribbleSocket?.GetEndPoint()?.Address.ToString();
-            if (!string.IsNullOrWhiteSpace(ip))
-                lbl_ip.Text = $"Server IP: {ip}";
         }
 
         private void Host_OnClientConnected(string clientInfo)
@@ -55,6 +49,14 @@ namespace SkribbleIO
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            // Start hosting on form load
+            hoster.Start(); // no port needed if using SkribbleSocket's config
+
+            // Display IP from config (if any)
+            var ip = hoster?.skribbleSocket?.GetEndPoint()?.Address.ToString();
+            if (!string.IsNullOrWhiteSpace(ip))
+                lbl_ip.Text = $"Server IP: {ip}";
+
             Game game = new Game();
             game.Show();
             this.Hide();
