@@ -9,11 +9,11 @@ namespace SkribbleIO
     {
         private Host hoster;
 
-        public Lobby()
+        public Lobby(Host hoster)
         {
             InitializeComponent();
+            this.hoster = hoster;
 
-            hoster = new Host();
             hoster.OnClientConnected += Host_OnClientConnected;
             hoster.OnClientDisconnected += Host_OnClientDisconnected;
         }
