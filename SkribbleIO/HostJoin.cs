@@ -31,11 +31,12 @@ namespace SkribbleIO
                 var client = Client.GetInstance();
                 client.OnMessageReceived += Client_OnMessageReceived;
 
+
                 MessageBox.Show("Connecté au serveur !");
 
                 Lobby lobbyForm = new Lobby(); // Pass host instance to Lobby
                 lobbyForm.Show();
-                lobbyForm.GetClient(client);
+                lobbyForm.GetClient();
             }
             catch (Exception ex)
             {

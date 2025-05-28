@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
+using System.Collections.Concurrent;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using ChatLib_Others; // Reference your SkribbleSocket class
+using System.Threading;
+using ChatLib_Others;
 
 namespace SkribbleIO
 {
@@ -17,7 +17,7 @@ namespace SkribbleIO
         public SkribbleSocket skribbleSocket { get; private set; }
 
         private Socket listener;
-        private List<Socket> clients = new List<Socket>();
+        private ConcurrentDictionary<string, Socket> clients = new();
         private bool isRunning = false;
 
         public Host()
@@ -40,73 +40,121 @@ namespace SkribbleIO
             listener.Listen(10);
             isRunning = true;
 
-            _ = Task.Run(() => AcceptClient());
+            Console.WriteLine("[Server] Hosting on: " + skribbleSocket.GetEndPoint());
+
+            ThreadPool.QueueUserWorkItem(_ => AcceptLoop());
         }
 
-        private async Task AcceptClient()
+        private void AcceptLoop()
         {
             while (isRunning)
             {
                 try
                 {
-                    var client = await listener.AcceptAsync();
-                    lock (clients) clients.Add(client);
-
-                    _ = Task.Run(() => HandleClient(client));
-                    Console.WriteLine("Client connecté");
-
-                    var endpoint = client.RemoteEndPoint.ToString();
-                    OnClientConnected?.Invoke(endpoint);
+                    listener.BeginAccept(OnClientAccepted, null);
+                    Thread.Sleep(10); // avoid tight loop
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error accepting client: " + ex.Message);
+                    Console.WriteLine("Error in AcceptLoop: " + ex.Message);
                 }
             }
         }
 
-        private async Task HandleClient(Socket client)
+        private void OnClientAccepted(IAsyncResult ar)
         {
-            byte[] buffer = new byte[1024];
-            while (isRunning)
+            Socket clientSocket = null;
+            try
             {
-                try
-                {
-                    int bytesRead = await client.ReceiveAsync(buffer, SocketFlags.None);
-                    if (bytesRead == 0) break;
+                clientSocket = listener.EndAccept(ar);
+                string clientKey = clientSocket.RemoteEndPoint.ToString();
 
-                    string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    OnMessageReceived?.Invoke(msg);
-                    Broadcast(msg, client);
-                }
-                catch
+                if (clients.TryAdd(clientKey, clientSocket))
                 {
-                    break;
+                    Console.WriteLine("[Server] New client connected: " + clientKey);
+                    OnClientConnected?.Invoke(clientKey);
+
+                    var state = new StateObject
+                    {
+                        WorkSocket = clientSocket
+                    };
+
+                    clientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, OnReceive, state);
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in OnClientAccepted: " + ex.Message);
+                clientSocket?.Close();
+            }
+        }
 
-            lock (clients) clients.Remove(client);
-            var endpoint = client.RemoteEndPoint.ToString();
-            OnClientDisconnected?.Invoke(endpoint);
-            client.Close();
+        private void OnReceive(IAsyncResult ar)
+        {
+            StateObject state = (StateObject)ar.AsyncState;
+            Socket clientSocket = state.WorkSocket;
+
+            try
+            {
+                int bytesRead = clientSocket.EndReceive(ar);
+
+                if (bytesRead > 0)
+                {
+                    string msg = Encoding.UTF8.GetString(state.Buffer, 0, bytesRead);
+                    OnMessageReceived?.Invoke(msg);
+
+                    Broadcast(msg, clientSocket);
+                    clientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, OnReceive, state);
+                }
+                else
+                {
+                    DisconnectClient(clientSocket);
+                }
+            }
+            catch
+            {
+                DisconnectClient(clientSocket);
+            }
         }
 
         private void Broadcast(string message, Socket sender)
         {
             byte[] buffer = Encoding.UTF8.GetBytes(message);
-            lock (clients)
+            string senderKey = sender.RemoteEndPoint.ToString();
+
+            foreach (var kvp in clients)
             {
-                foreach (var client in clients)
+                if (kvp.Key != senderKey)
                 {
-                    if (client != sender)
+                    try
                     {
-                        try
-                        {
-                            client.Send(buffer);
-                        }
-                        catch { }
+                        kvp.Value.Send(buffer);
+                    }
+                    catch
+                    {
+                        DisconnectClient(kvp.Value);
                     }
                 }
+            }
+        }
+
+        private void DisconnectClient(Socket client)
+        {
+            string key = client.RemoteEndPoint?.ToString();
+            if (key != null && clients.TryRemove(key, out _))
+            {
+                OnClientDisconnected?.Invoke(key);
+                Console.WriteLine("[Server] Client disconnected: " + key);
+            }
+
+            try
+            {
+                client.Shutdown(SocketShutdown.Both);
+            }
+            catch { }
+            finally
+            {
+                client.Close();
             }
         }
 
@@ -114,11 +162,20 @@ namespace SkribbleIO
         {
             isRunning = false;
             listener.Close();
-            lock (clients)
+
+            foreach (var kvp in clients)
             {
-                foreach (var client in clients) client.Close();
+                try { kvp.Value.Close(); } catch { }
             }
+
             clients.Clear();
         }
+    }
+
+    internal class StateObject
+    {
+        public Socket WorkSocket = null;
+        public const int BufferSize = 1024;
+        public byte[] Buffer = new byte[BufferSize];
     }
 }

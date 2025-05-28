@@ -46,7 +46,7 @@ namespace SkribbleIO
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Client.Initialize(): " + ex.Message);
+                MessageBox.Show("Erreur Client.Initialize(): " + ex.Message);
             }
         }
 
@@ -55,12 +55,12 @@ namespace SkribbleIO
             try
             {
                 sender.EndConnect(ar);
-                Console.WriteLine("Connecté au serveur.");
+                MessageBox.Show("Connecté au serveur.");
                 StartReceiving();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur lors de la connexion: " + ex.Message);
+                MessageBox.Show("Erreur lors de la connexion: " + ex.Message);
             }
         }
 
@@ -77,7 +77,7 @@ namespace SkribbleIO
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Client.SendMessage(): " + ex.Message);
+                MessageBox.Show("Erreur Client.SendMessage(): " + ex.Message);
             }
         }
 
@@ -86,11 +86,11 @@ namespace SkribbleIO
             try
             {
                 int bytesSent = sender.EndSend(ar);
-                Console.WriteLine($"[Client] {bytesSent} octets envoyés.");
+                MessageBox.Show($"[Client] {bytesSent} octets envoyés.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Client.OnSendComplete(): " + ex.Message);
+                MessageBox.Show("Erreur Client.OnSendComplete(): " + ex.Message);
             }
         }
 
@@ -104,7 +104,7 @@ namespace SkribbleIO
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Client.StartReceiving(): " + ex.Message);
+                MessageBox.Show("Erreur Client.StartReceiving(): " + ex.Message);
             }
         }
 
@@ -135,13 +135,13 @@ namespace SkribbleIO
                 }
                 else
                 {
-                    Console.WriteLine("Connexion fermée par le serveur.");
+                    MessageBox.Show("Connexion fermée par le serveur.");
                     socket.Close();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Client.OnReceive(): " + ex.Message);
+                MessageBox.Show("Erreur Client.OnReceive(): " + ex.Message);
             }
         }
 
