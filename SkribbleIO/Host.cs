@@ -16,6 +16,8 @@ namespace SkribbleIO
 
         public SkribbleSocket skribbleSocket { get; private set; }
 
+        private static ManualResetEvent mreAccept = new ManualResetEvent(false);
+        private static ManualResetEvent mreReceive = new ManualResetEvent(false);
         private Socket listener;
         private ConcurrentDictionary<string, Socket> clients = new();
         private bool isRunning = false;
@@ -51,7 +53,9 @@ namespace SkribbleIO
             {
                 try
                 {
+                    mreAccept.Reset();
                     listener.BeginAccept(OnClientAccepted, null);
+                    mreAccept.WaitOne(); // Wait for a connection
                     Thread.Sleep(10); // avoid tight loop
                 }
                 catch (Exception ex)

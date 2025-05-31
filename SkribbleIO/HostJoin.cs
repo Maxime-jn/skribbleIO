@@ -11,11 +11,11 @@ namespace SkribbleIO
         public HostJoin()
         {
             InitializeComponent();
-            hoster = new Host();
         }
 
         private async void btnCreate_Click(object sender, EventArgs e)
         {
+            hoster = new Host();
             await Task.Run(() => hoster.Start()); // Start host using config
 
             Lobby lobbyForm = new Lobby(); // Pass host instance to Lobby
