@@ -311,6 +311,8 @@ namespace SkribbleIO
             Controls.Add(lbxPlayer);
             Controls.Add(lbxChat);
             Controls.Add(btnSendMessage);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Game";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Game";
