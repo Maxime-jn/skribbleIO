@@ -19,7 +19,7 @@ namespace SkribbleIO
         public event Action<string, string> CanvasUpdate;
         public event Action<string> StartGame;
 
-       
+
 
 
         public void Start(int port)
@@ -102,8 +102,14 @@ namespace SkribbleIO
                     var split = part.Split(new[] { "::" }, StringSplitOptions.None);
                     string ip = split[1];
                     string base64 = split[2];
-                    CanvasUpdate?.Invoke(ip, base64);
-                    Broadcast($"canvasUpdate::{ip}::{base64}<|EOM|>");
+
+                    // Validation de la chaîne base64
+                    if (IsBase64String(base64))
+                    {
+                        CanvasUpdate?.Invoke(ip, base64);
+                        Broadcast($"canvasUpdate::{ip}::{base64}<|EOM|>");
+                    }
+                    // Sinon, ignorer ou logguer l'erreur
                 }
                 else if (part.StartsWith("startGame::"))
                 {
@@ -115,6 +121,14 @@ namespace SkribbleIO
             }
         }
 
+        private static bool IsBase64String(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return false;
+            s = s.Trim();
+            return (s.Length % 4 == 0) &&
+                   System.Text.RegularExpressions.Regex.IsMatch(s, @"^[a-zA-Z0-9\+/]*={0,2}$", System.Text.RegularExpressions.RegexOptions.None);
+        }
         public void Broadcast(string message)
         {
             byte[] data = Encoding.UTF8.GetBytes(message);
