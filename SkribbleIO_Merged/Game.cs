@@ -108,6 +108,7 @@ namespace SkribbleIO
                     string base64 = Convert.ToBase64String(ms.ToArray());
                     HostJoin.client.Send($"canvasUpdate::{HostJoin.myIp}::{base64}<|EOM|>");
                 }
+               
             }
             isDrawing = false;
         }
@@ -353,16 +354,7 @@ namespace SkribbleIO
                 pbxCanvas.Invalidate();
                 lastPoint = e.Location;
 
-                // Ajout : envoyer le canvas à chaque mouvement si on est le dessinateur
-                if (isDrawer && HostJoin.client != null && HostJoin.myIp != null)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        pbxCanvas.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        string base64 = Convert.ToBase64String(ms.ToArray());
-                        HostJoin.client.Send($"canvasUpdate::{HostJoin.myIp}::{base64}<|EOM|>");
-                    }
-                }
+              
             }
         }
 
@@ -376,6 +368,8 @@ namespace SkribbleIO
                     isDrawing = true;
                     lastPoint = e.Location;
                 }
+              
+            
             }
 
         }

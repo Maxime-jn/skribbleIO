@@ -16,33 +16,49 @@ namespace SkribbleIO
 
         public void Connect(string ip, int port)
         {
+            var buffer = new byte[8192];
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
             socket.BeginConnect(new IPEndPoint(IPAddress.Parse(ip), port), ar =>
             {
-                socket.EndConnect(ar);
-                BeginReceive();
+                try
+                {
+                    socket.EndConnect(ar);
+                    BeginReceiveLoop(buffer);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erreur de connexion : {ex.Message}");
+                }
             }, null);
         }
 
-        private void BeginReceive()
+        private void BeginReceiveLoop(byte[] buffer)
         {
-            var buffer = new byte[8192];
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ar =>
             {
                 try
                 {
                     int received = socket.EndReceive(ar);
-                    if (received == 0) return;
-                    string msg = Encoding.UTF8.GetString(buffer, 0, received);
-                    HandleMessage(msg);
-                    BeginReceive();
+                    if (received > 0)
+                    {
+                        string msg = Encoding.UTF8.GetString(buffer, 0, received);
+                        HandleMessage(msg);
+                        // Relancer la réception pour le prochain message
+                        BeginReceiveLoop(buffer);
+                    }
+                    // Si received == 0, la connexion est probablement fermée
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erreur de réception : {ex.Message}");
+                }
             }, null);
         }
 
         private void HandleMessage(string msg)
         {
+            Console.WriteLine($"msg received: {msg}");
             foreach (var part in msg.Split(new[] { "<|EOM|>" }, StringSplitOptions.RemoveEmptyEntries))
             {
                 if (part.StartsWith("playerJoined::"))
