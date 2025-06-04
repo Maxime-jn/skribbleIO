@@ -102,14 +102,8 @@ namespace SkribbleIO
                     var split = part.Split(new[] { "::" }, StringSplitOptions.None);
                     string ip = split[1];
                     string base64 = split[2];
-
-                    // Validation de la chaîne base64
-                    if (IsBase64String(base64))
-                    {
-                        CanvasUpdate?.Invoke(ip, base64);
-                        Broadcast($"canvasUpdate::{ip}::{base64}<|EOM|>");
-                    }
-                    // Sinon, ignorer ou logguer l'erreur
+                    CanvasUpdate?.Invoke(ip, base64);
+                    Broadcast($"canvasUpdate::{ip}::{base64}<|EOM|>");
                 }
                 else if (part.StartsWith("startGame::"))
                 {
@@ -120,6 +114,7 @@ namespace SkribbleIO
                 }
             }
         }
+
 
         private static bool IsBase64String(string s)
         {
