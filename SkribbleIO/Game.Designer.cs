@@ -93,7 +93,6 @@ namespace SkribbleIO
             btnSendMessage.Text = "Tenter de deviner";
             btnSendMessage.UseVisualStyleBackColor = true;
             btnSendMessage.Click += btnSendMessage_Click;
-            
             // 
             // lbxChat
             // 
@@ -313,6 +312,8 @@ namespace SkribbleIO
             Controls.Add(lbxPlayer);
             Controls.Add(lbxChat);
             Controls.Add(btnSendMessage);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Game";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Game";

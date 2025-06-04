@@ -322,7 +322,7 @@ namespace SkribbleIO
                 // selectionner sans rien deselectionner
                 canDraw = true;
                 ChangeColor("white");
-                
+
                 btnEraser.BackColor = Color.DodgerBlue;
 
             }
@@ -419,6 +419,7 @@ namespace SkribbleIO
                 MessageBox.Show("Bonne reponse");
                 lblSecretWord.Text = secretWord;
                 // send that secret word is found to other players
+
             }
             else
             {
@@ -451,7 +452,7 @@ namespace SkribbleIO
                 MessageBox.Show("Le temps est écoulé !", "Fin du jeu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-             time++;
+            time++;
             lblClock.Text = (maxTime - time).ToString() + "s";
 
 
@@ -460,9 +461,9 @@ namespace SkribbleIO
                 if (lettersIsShow != null && words.Count > 0)
                 {
                     string currentWord = secretWord;
-                        //new string(lettersIsShow.Keys.ToArray());
+                    //new string(lettersIsShow.Keys.ToArray());
                     showLetters(lettersIsShow, currentWord.ToCharArray());
-                    }
+                }
             }
         }
 
