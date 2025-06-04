@@ -42,7 +42,7 @@
             btnStart.TabIndex = 0;
             btnStart.Text = "Commencer la partie";
             btnStart.UseVisualStyleBackColor = true;
-            btnStart.Click += btnStart_Click;
+            btnStart.Click += btnStartGame_Click;
             // 
             // clbxPlayers
             // 

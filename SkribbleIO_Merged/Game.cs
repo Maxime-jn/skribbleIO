@@ -1,17 +1,29 @@
-using System.Windows.Forms;
-using System.Drawing.Text;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace SkribbleIO
 {
     public partial class Game : Form
     {
-        public Game()
-        {
-            InitializeComponent();
-        }
+        // Multijoueur
+        private string drawerIp;
+        private bool isDrawer => drawerIp == HostJoin.myIp;
+        private List<(string username, string ip)> players = new();
 
-        List<string> words = new List<string>
+        // Dessin
+        private bool isDrawing = false;
+        private bool canDraw = false;
+        private Point lastPoint = Point.Empty;
+        private Color selectedColor = Color.Black;
+        private int selectedWidth = 5;
+        private string? selectedTool = null;
+        private Button? colorBtnSelected = null;
+
+        // Jeu
+        private List<string> words = new List<string>
         {
             "chat", "chien", "maison", "école", "voiture", "arbre", "fleur", "ciel", "soleil", "lune",
             "étoile", "mer", "rivière", "montagne", "colline", "forêt", "jardin", "parc", "ville", "village",
@@ -40,48 +52,158 @@ namespace SkribbleIO
             "natation", "course", "marche", "chant", "dessin", "écriture", "poésie", "roman", "nouvelle", "essai",
             "biographie", "journal", "magazine", "revue"
         };
-
-        List<string> players = new List<string>
-        {
-            "Joueur1","Joueur2","Joueur3","Joueur4"
-        };
         private string playerName;
         private int time = 0;
         const int maxTime = 80;
         const int firstHintTime = 30;
         const int secondtHintTime = 60;
-
         private Dictionary<char, bool> lettersIsShow = new Dictionary<char, bool>();
         Random random = new Random();
-
         private string secretWord;
 
-        private bool isDrawing = false;
-        private bool canDraw = false;
-        private Point lastPoint = Point.Empty;
-        private Color selectedColor = Color.Black;
-        private int selectedWidth = 5;
-        private string? selectedTool = null;
-        private Button? colorBtnSelected = null;
-
-
-        private void Form1_Load(object sender, EventArgs e)
+        public Game(string drawerIp)
         {
+            InitializeComponent();
+            this.drawerIp = drawerIp;
+
+            // Souscription aux événements réseau
+            HostJoin.client.ChatMessage += OnChatMessage;
+            HostJoin.client.CanvasUpdate += OnCanvasUpdate;
+            HostJoin.client.PlayerJoined += OnPlayerJoined;
+            HostJoin.client.PlayerLeft += OnPlayerLeft;
+        }
+
+        private void Game_Load(object sender, EventArgs e)
+        {
+            // Initialisation de la liste des joueurs
+            players.Add((HostJoin.username, HostJoin.myIp));
+            UpdatePlayerList();
+
+            if (isDrawer)
+                canDraw = true;
+            else
+                canDraw = false;
+
             int index = random.Next(words.Count);
-
             lettersIsShow = loadSecretWord(words[index]);
-            playerName = "Joueur1";
-
-            loadSecretWord(words[index]);
+            playerName = HostJoin.username;
             secretWord = words[index];
-            MessageBox.Show("Le mot à deviner est : " + secretWord);
+
+            if (isDrawer)
+                MessageBox.Show("Le mot à deviner est : " + secretWord);
 
             lblClock.Text = maxTime.ToString() + "s";
-
             tmrClock.Start();
-            chooseDrawer();
             colorBtnSelected = btnBlack;
         }
+
+        // --- ENVOI DU CANVAS ---
+        private void pbxCanvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (isDrawer && pbxCanvas.Image != null)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    pbxCanvas.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    string base64 = Convert.ToBase64String(ms.ToArray());
+                    HostJoin.client.Send($"canvasUpdate::{HostJoin.myIp}::{base64}<|EOM|>");
+                }
+            }
+            isDrawing = false;
+        }
+
+        // --- RÉCEPTION DU CANVAS ---
+        private void OnCanvasUpdate(string ip, string base64)
+        {
+            if (ip == drawerIp && !isDrawer)
+            {
+                byte[] imgBytes = Convert.FromBase64String(base64);
+                using (var ms = new MemoryStream(imgBytes))
+                {
+                    if (pbxCanvas.InvokeRequired)
+                    {
+                        pbxCanvas.Invoke(new Action(() =>
+                        {
+                            pbxCanvas.Image = Image.FromStream(ms);
+                        }));
+                    }
+                    else
+                    {
+                        pbxCanvas.Image = Image.FromStream(ms);
+                    }
+                }
+            }
+        }
+
+        // --- ENVOI DU CHAT ---
+        private void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            string msg = tbxMessage.Text.Trim();
+            if (string.IsNullOrEmpty(msg)) return;
+            HostJoin.client.Send($"chat::{HostJoin.myIp}::{HostJoin.username}::{msg}<|EOM|>");
+            tbxMessage.Text = "";
+            ManageGuess();
+        }
+
+        private void tbxMessage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnSendMessage_Click(sender, e);
+            }
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                ManageGuess();
+            }
+        }
+
+        // --- RÉCEPTION DU CHAT ---
+        private void OnChatMessage(string ip, string username, string message)
+        {
+            if (lbxChat.InvokeRequired)
+            {
+                lbxChat.Invoke(new Action(() =>
+                {
+                    lbxChat.Items.Add($"{username} ({ip}): {message}");
+                }));
+            }
+            else
+            {
+                lbxChat.Items.Add($"{username} ({ip}): {message}");
+            }
+        }
+
+        // --- GESTION DES JOUEURS ---
+        private void OnPlayerJoined(string username, string ip)
+        {
+            if (!players.Exists(p => p.ip == ip))
+            {
+                players.Add((username, ip));
+                UpdatePlayerList();
+            }
+        }
+
+        private void OnPlayerLeft(string username, string ip)
+        {
+            players.RemoveAll(p => p.ip == ip);
+            UpdatePlayerList();
+        }
+
+        private void UpdatePlayerList()
+        {
+            if (lbxPlayer.InvokeRequired)
+            {
+                lbxPlayer.Invoke(new Action(UpdatePlayerList));
+                return;
+            }
+            lbxPlayer.Items.Clear();
+            foreach (var p in players)
+                lbxPlayer.Items.Add($"{p.username} ({p.ip})");
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////
+
 
 
         private void ChangeColor(string color)
@@ -224,17 +346,26 @@ namespace SkribbleIO
                     {
                         g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                         g.DrawLine(p, lastPoint, e.Location);
-
-                        // Remplit les trous entre les points en dessinant un petit cercle � l'arriv�e
-                        int radius = selectedWidth / 2; // rayon du cercle (� ajuster selon l'�paisseur)
+                        int radius = selectedWidth / 2;
                         g.FillEllipse(b, e.X - radius, e.Y - radius, radius * 2, radius * 2);
                     }
                 }
-
                 pbxCanvas.Invalidate();
                 lastPoint = e.Location;
+
+                // Ajout : envoyer le canvas à chaque mouvement si on est le dessinateur
+                if (isDrawer && HostJoin.client != null && HostJoin.myIp != null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        pbxCanvas.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        string base64 = Convert.ToBase64String(ms.ToArray());
+                        HostJoin.client.Send($"canvasUpdate::{HostJoin.myIp}::{base64}<|EOM|>");
+                    }
+                }
             }
         }
+
         private void pbxCanvas_MouseDown(object sender, MouseEventArgs e)
         {
             if (canDraw)
@@ -249,14 +380,7 @@ namespace SkribbleIO
 
         }
 
-        private void pbxCanvas_MouseUp(object sender, MouseEventArgs e)
-        {
-            // Handle mouse up event
-            if (e.Button == MouseButtons.Left)
-            {
-                isDrawing = false;
-            }
-        }
+
 
         private void btnPen_Click(object sender, EventArgs e)
         {
@@ -322,7 +446,7 @@ namespace SkribbleIO
                 // selectionner sans rien deselectionner
                 canDraw = true;
                 ChangeColor("white");
-                
+
                 btnEraser.BackColor = Color.DodgerBlue;
 
             }
@@ -429,20 +553,6 @@ namespace SkribbleIO
         }
 
 
-        private void tbxMessage_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                ManageGuess();
-            }
-        }
-
-        private void btnSendMessage_Click(object sender, EventArgs e)
-        {
-            ManageGuess();
-        }
-
-
         private void tmrClock_Tick(object sender, EventArgs e)
         {
             if (time >= maxTime)
@@ -451,7 +561,7 @@ namespace SkribbleIO
                 MessageBox.Show("Le temps est écoulé !", "Fin du jeu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-             time++;
+            time++;
             lblClock.Text = (maxTime - time).ToString() + "s";
 
 
@@ -460,9 +570,9 @@ namespace SkribbleIO
                 if (lettersIsShow != null && words.Count > 0)
                 {
                     string currentWord = secretWord;
-                        //new string(lettersIsShow.Keys.ToArray());
+                    //new string(lettersIsShow.Keys.ToArray());
                     showLetters(lettersIsShow, currentWord.ToCharArray());
-                    }
+                }
             }
         }
 
@@ -470,11 +580,9 @@ namespace SkribbleIO
         {
             Random random = new Random();
             int index = random.Next(0, players.Count);
-            string drawer = players[index];
-            // Afficher le nom du dessinateur dans une boîte de message
-            MessageBox.Show($"Le dessinateur est : {drawer}", "Dessinateur Choisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
+            var drawer = players[index]; // Correctly use the tuple type (string username, string ip)  
+                                         // Afficher le nom du dessinateur dans une boîte de message  
+            MessageBox.Show($"Le dessinateur est : {drawer.username} ({drawer.ip})", "Dessinateur Choisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnBlack_Click(object sender, EventArgs e)

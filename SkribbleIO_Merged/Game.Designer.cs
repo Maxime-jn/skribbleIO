@@ -68,7 +68,7 @@ namespace SkribbleIO
             pbxCanvas.TabStop = false;
             pbxCanvas.MouseDown += pbxCanvas_MouseDown;
             pbxCanvas.MouseMove += pbxCanvas_MouseMove;
-            pbxCanvas.MouseUp += pbxCanvas_MouseUp;
+            pbxCanvas.MouseUp += this.pbxCanvas_MouseUp;
             // 
             // trbWidth
             // 
@@ -92,8 +92,7 @@ namespace SkribbleIO
             btnSendMessage.TabIndex = 0;
             btnSendMessage.Text = "Tenter de deviner";
             btnSendMessage.UseVisualStyleBackColor = true;
-            btnSendMessage.Click += btnSendMessage_Click;
-            
+            btnSendMessage.Click += this.btnSendMessage_Click;
             // 
             // lbxChat
             // 
@@ -231,7 +230,6 @@ namespace SkribbleIO
             tbxMessage.PlaceholderText = " Écrivez ici votre supposition";
             tbxMessage.Size = new Size(214, 23);
             tbxMessage.TabIndex = 15;
-            tbxMessage.KeyPress += tbxMessage_KeyPress;
             // 
             // tmrClock
             // 
@@ -316,7 +314,7 @@ namespace SkribbleIO
             Name = "Game";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Game";
-            Load += Form1_Load;
+            Load += Game_Load;
             ((System.ComponentModel.ISupportInitialize)pbxCanvas).EndInit();
             ((System.ComponentModel.ISupportInitialize)trbWidth).EndInit();
             ResumeLayout(false);
